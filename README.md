@@ -1,4 +1,4 @@
-# NotasIV-WebService
+l# NotasIV-WebService
 
 ## ¿En qué consiste este repositorio?
 
@@ -7,8 +7,7 @@ los profesores que la imparten.
 
 ## ¿Cuál es la idea?
 
-La idea es facilitar a los profesores la comunicación de las notas de cada hito de las
-practicas de la asginatura a los estudiantes, ya sea a través de un bot de Telegram o con
+La idea es facilitar a los profesores la comunicación de las notas de cada practica de la asginatura a los estudiantes, ya sea a través de un bot de Telegram o con
 otro cliente distinto.
 
 ## ¿Cómo se va a implementar?
