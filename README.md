@@ -15,6 +15,9 @@ estudiante, favoreciendo la privacidad en lugar de tener una hoja pública con l
 
 * **Lenguaje**: Se programará en **Python** debido a su facilidad de uso y cantidad de librerias disponibles, permitiendo un mayor foco en la infraestructura que en las peculiaridades del lenguaje. En concreto se usará la versión **3.6.8**, ya que es estable pero no la última disponible, por lo que se pueden hacer pruebas de actualizar el entorno virtual y resolver posibles problemas de compatibilidad que se presenten.
 
+* **Entorno virtual y gestion de librerias**: Una vez elegido el lenguaje, y mas siento Python, se va a usar la herramienta [pipenv](https://pipenv-es.readthedocs.io/es/latest/) para gestionar el entorno virtual de ejecución
+y las librerias con las versiones necesarias de cada una. He elegido esta herramienta porque unifica el gestor de paquetes *pip* y el módulo *venv* de Python en una sola, además de ofrecer posibilidad de crear builds deterministas y usar el formato que sustituirá al famoso requirements.txt, el [Pipfile](https://github.com/pypa/pipfile).
+
 * **Framework Web**: Para interactuar con el microservicio se usará una API REST, por lo que utilizaré el famoso microframewok [Flask](https://palletsprojects.com/p/flask/) para el desarrollo del apartado web, en concreto una extensión de la libreria llamada [Flask-RESTful](https://flask-restful.readthedocs.io/en/latest/) que facilita la creación y el uso de buenas prácticas para la creación de la misma.
 
 * **Tests**: Python dispone de varias librerias de testing. Las mas famosas son *unittest* (standard library), *nose* y *pytest*. De entre ellas he elegido **pytest** debido a la cantidad de extensiones (315+, como por ejemplo para [coverage](https://pypi.org/project/pytest-cov/)), facilidad de uso y perfecta retrocompatibilidad con las otras librerias mencionadas.
