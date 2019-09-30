@@ -1,5 +1,7 @@
 # NotasIV
 
+[![Build Status](https://travis-ci.com/angelhodar/NotasIV.svg?branch=master)](https://travis-ci.com/angelhodar/NotasIV)
+
 ## ¿En qué consiste este repositorio?
 
 En este repositorio se pretende crear un micro-servicio que permita una fácil gestión de las notas de la asignatura IV para
