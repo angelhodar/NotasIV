@@ -33,3 +33,7 @@ y las librerias con las versiones necesarias de cada una. He elegido esta herram
 * **Logs**: En principio, usaré la librería [loguru](https://github.com/Delgan/loguru), la cual es una abstracción y mejora de la librería logging que viene incorporada en la standard library de python y que, según su autor, pretende mitigar los inconvenientes de la misma. Luego se integrará con el [Elastic Stack](https://www.elastic.co/es/what-is/elk-stack) para poder visualizar los logs comodamente a través de un dashboard (tengo que investigar mas de esto).
 
 * **CI**: Para mantener un flujo de trabajo de integración continua, optaré por el uso de Travis CI dada su popularidad, aunque aun no he investigado mucho lo que ofrecen otros servicios como CircleCI como para decantarme por Travis al 100%.
+
+# Documentacion
+
+Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/latest/)
