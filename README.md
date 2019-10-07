@@ -34,6 +34,6 @@ y las librerias con las versiones necesarias de cada una. He elegido esta herram
 
 * **CI**: Para mantener un flujo de trabajo de integración continua, optaré por el uso de Travis CI dada su popularidad, aunque aun no he investigado mucho lo que ofrecen otros servicios como CircleCI como para decantarme por Travis al 100%.
 
-# Documentacion
+## Documentacion
 
 Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/latest/)
