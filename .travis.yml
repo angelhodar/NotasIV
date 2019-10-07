@@ -1,12 +1,11 @@
 language: python
 python:
   - "3.5"
-  - "3.6"      # current default Python on Travis CI
+  - "3.6"
   - "3.7"
-  - "3.7-dev"  # 3.7 development branch
-# command to install dependencies
+  - "3.7-dev"
 install:
   - pip install pipenv
   - pipenv install --dev
 script:
-  - pipenv run pytest
+  - pipenv run python -m pytest

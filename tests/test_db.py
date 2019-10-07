@@ -1,6 +1,5 @@
 from notas import db
 
-
 def test_student_get():
     student = db.get_student('angelhodar')
     assert student is not None
@@ -9,7 +8,7 @@ def test_student_get():
 
 def test_student_insert():
     students = db.get_students()
-    new_student = db.get_data('alumno.json')
+    new_student = db.load_json('alumno.json')
 
     # Check the actual count of students and the id of inserted one
     count = len(students)
