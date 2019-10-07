@@ -11,7 +11,7 @@ jobs:
           name: Entorno y dependencias
           command: |
             pip install pipenv
-            pipenv install --dev
+            pipenv install --python 3.7 --dev
       # Ejecucion de los tests
       - run:
           name: Ejecutar tests
