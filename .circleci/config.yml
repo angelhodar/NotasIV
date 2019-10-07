@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Entorno y dependencias
           command: |
-	          pip install pipenv
+            pip install pipenv
             pipenv install --dev
       # Ejecucion de los tests
       - run:
