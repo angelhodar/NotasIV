@@ -8,6 +8,9 @@ pytest = "*"
 sphinx = "*"
 pytest-cov = "*"
 codecov = "*"
+sphinx-rtd-theme = "*"
+pylint = "*"
+sphinx-autoapi = "*"
 
 [packages]
 mongoengine = "*"
