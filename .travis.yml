@@ -8,4 +8,6 @@ install:
   - pip install pipenv
   - pipenv install --dev
 script:
-  - pipenv run python -m pytest
+  - pipenv run python -m pytest --cov-report=xml --cov=notas tests/
+after_success:
+  - codecov

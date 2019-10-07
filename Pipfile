@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 sphinx = "*"
+pytest-cov = "*"
+codecov = "*"
 
 [packages]
 mongoengine = "*"
