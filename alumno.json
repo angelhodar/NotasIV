@@ -13,11 +13,13 @@
                 "nota": 10,
                 "comentarios": "Prueba",
                 "adicionales": "Hola",
-                "reenvio" : {
-                    "nota" : 8.5,
-                    "comentarios" : "Bien hecho",
-                    "adicionales" : "Adicional"
-                }
+                "reenvios" : [
+                    {
+                        "nota" : 8.5,
+                        "comentarios" : "Bien hecho",
+                        "adicionales" : "Adicional"
+                    }
+                ]
             }
         }
     }

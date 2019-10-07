@@ -8,7 +8,14 @@
                 "0": {
                     "nota": 10,
                     "comentarios": "Prueba",
-                    "adicionales": "Hola"
+                    "adicionales": "Hola",
+                    "reenvios" : [
+                        {
+                            "nota" : 8.5,
+                            "comentarios" : "Bien hecho",
+                            "adicionales" : "Adicional"
+                        }
+                    ]
                 },
                 "1": {
                     "nota": 10,
@@ -25,7 +32,14 @@
                 "0": {
                     "nota": 10,
                     "comentarios": "Prueba",
-                    "adicionales": "Hola"
+                    "adicionales": "Hola",
+                    "reenvios" : [
+                        {
+                            "nota" : 8.5,
+                            "comentarios" : "Bien hecho",
+                            "adicionales" : "Adicional"
+                        }
+                    ]
                 },
                 "1": {
                     "nota": 10,
