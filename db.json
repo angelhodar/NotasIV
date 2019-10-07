@@ -1,0 +1,38 @@
+{
+    "alumnos": {
+        "angelhodar": {
+            "nombre": "Angel Rodriguez Hodar",
+            "telegram": "angelhodar",
+            "repo": "https://github.com/angelhodar/NotasIV",
+            "hitos": {
+                "0": {
+                    "nota": 10,
+                    "comentarios": "Prueba",
+                    "adicionales": "Hola"
+                },
+                "1": {
+                    "nota": 10,
+                    "comentarios": "Prueba",
+                    "adicionales": "Hola"
+                }
+            }
+        },
+        "antonio": {
+            "nombre": "Antonio Molner Domenech",
+            "telegram": "antoniomolner",
+            "repo": "https://github.com/antoniomdk/prueba",
+            "hitos": {
+                "0": {
+                    "nota": 10,
+                    "comentarios": "Prueba",
+                    "adicionales": "Hola"
+                },
+                "1": {
+                    "nota": 10,
+                    "comentarios": "Prueba",
+                    "adicionales": "Hola"
+                }
+            }
+        }
+    }
+}
