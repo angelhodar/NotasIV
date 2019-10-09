@@ -34,6 +34,21 @@ y las librerias con las versiones necesarias de cada una. He elegido esta herram
 
 * **CI**: Para mantener un flujo de trabajo de integración continua, optaré por el uso de Travis CI dada su popularidad, aunque aun no he investigado mucho lo que ofrecen otros servicios como CircleCI como para decantarme por Travis al 100%.
 
+## Ejecución de los tests
+
+Para ejecutar los tests es tan sencillo como ejecutar los siguientes comandos:
+
+```bash
+make
+make tests
+```
+
+Como los tests generan datos para codecov cuando se ejecutan en Travis, para limpiar estos simplemente ejecuta lo siguiente:
+
+```bash
+make clean
+```
+
 ## Documentacion
 
 Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/latest/)
