@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.com/angelhodar/NotasIV.svg?branch=master)](https://travis-ci.com/angelhodar/NotasIV)
 [![CircleCI](https://circleci.com/gh/angelhodar/NotasIV.svg?style=svg)](https://circleci.com/gh/angelhodar/NotasIV)
 [![codecov](https://codecov.io/gh/angelhodar/NotasIV/branch/master/graph/badge.svg)](https://codecov.io/gh/angelhodar/NotasIV)
-[![Documentation Status](https://readthedocs.org/projects/notasiv/badge/?version=latest)](https://notasiv.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/notasiv/badge/?version=master)](https://notasiv.readthedocs.io/en/master/?badge=master)
 
 ## ¿En qué consiste este repositorio?
 
