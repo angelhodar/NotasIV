@@ -9,7 +9,7 @@ TravisCI
 El sistema de Travis se configura únicamente con un archivo ``.travis.yml`` que debe
 estar ubicado en la raiz de nuestro proyecto. Este archivo contiene la siguiente información:
 
-.. code:: bash
+.. code:: yaml
 
     language: python
     python:
@@ -37,7 +37,7 @@ CircleCI
 Para CircleCI la configuración es bastante similar, simplemente nuestro archivo de configuración pasa a llamarse ``config.yml`` y hay
 que ubircarlo en un directorio ``.circleci`` en la raiz de nuestro proyecto. El archivo ``config.yml`` contiene lo siguiente:
 
-.. code:: bash
+.. code:: yaml
 
     version: 2
     jobs:
