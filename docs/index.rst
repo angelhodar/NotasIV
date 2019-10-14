@@ -7,4 +7,6 @@ Aqui se documentará todo lo relativo al microservicio.
    :maxdepth: 2
    :caption: Indice:
 
+   build.rst
+   ci.rst
    api.rst
