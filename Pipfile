@@ -16,7 +16,7 @@ sphinx-autoapi = "*"
 mongoengine = "*"
 loguru = "*"
 flask = "*"
-flask-restful = "*"
+flask-restplus = "*"
 
 [requires]
 python_version = "3.6"
