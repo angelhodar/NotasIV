@@ -17,6 +17,7 @@ mongoengine = "*"
 loguru = "*"
 flask = "*"
 flask-restplus = "*"
+fastjsonschema = "*"
 
 [requires]
 python_version = "3.6"

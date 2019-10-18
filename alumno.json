@@ -1,15 +1,17 @@
 {
-    "ficticio": {
-        "nombre": "Ficticio Muy Ficticio",
-        "telegram": "ficticio98",
-        "repo": "https://github.com/angelhodar/NotasIV",
-        "hitos": {
-            "0": {
+    "test": {
+        "nombre": "Test",
+        "telegram": "test98",
+        "repo": "https://github.com/angelhodar/testing",
+        "hitos": [
+            {
+                "numero": 0,
                 "nota": 10,
                 "comentarios": "Prueba",
                 "adicionales": "Hola"
             },
-            "1": {
+            {
+                "numero": 1,
                 "nota": 10,
                 "comentarios": "Prueba",
                 "adicionales": "Hola",
@@ -21,6 +23,6 @@
                     }
                 ]
             }
-        }
+        ]
     }
 }

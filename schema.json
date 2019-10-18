@@ -1,0 +1,65 @@
+{
+    "title": "Student",
+    "description": "The JSON schema for student data",
+    "type": "object",
+    "required": ["nombre", "telegram", "repo", "hitos"],
+    "properties": {
+        "nombre": {
+            "type": "string",
+            "title": "Name of the student"
+        },
+        "telegram": {
+            "type": "string",
+            "title": "Student's Telegram username"
+        },
+        "repo": {
+            "type": "string",
+            "title": "The student's project github repository url"
+        },
+        "hitos": {
+            "type": "array",
+            "title": "An array containing all grades",
+            "items": {
+                "type": "object",
+                "required": ["numero", "nota"],
+                "properties": {
+                    "numero": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 7
+                    },
+                    "nota": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10
+                    },
+                    "comentarios": {
+                        "type": "string"
+                    },
+                    "adicionales": {
+                        "type": "string"
+                    },
+                    "reenvios": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "nota": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 10
+                                },
+                                "comentarios": {
+                                    "type": "string"
+                                },
+                                "adicionales": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}

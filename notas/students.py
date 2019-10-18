@@ -1,48 +1,59 @@
+import json
+import fastjsonschema
+from functools import wraps
 from flask import Flask, request
-from flask_restplus import Api, Resource, abort, fields
+from flask_restplus import Api, Resource, abort
 
 app = Flask(__name__)
 api = Api(app)
 
+with open('schema.json') as file:
+    validate = fastjsonschema.compile(json.load(file))
+
 STUDENTS = {}
 
-def abort_student(student_id):
-    abort(404, message=f"The student {student_id} doesnt exist")
+def abort_invalid_student(func):
+    @wraps(func)
+    def wrapper(self, student_id, *args, **kwargs):
+        if student_id in STUDENTS:
+            return func(self, student_id, *args, **kwargs)
+        else:
+            abort(404, message=f"The student {student_id} doesnt exist")
+    return wrapper
 
-
-class Student(Resource):
-    def get(self, student_id):
-        if student_id not in STUDENTS:
-            abort_student(student_id)
-        return STUDENTS[student_id]
-
-    def delete(self, student_id):
-        if student_id not in STUDENTS:
-            abort_student(student_id)
-        del STUDENTS[student_id]
-        return '', 204
-
-    def put(self, student_id):
-        if student_id not in STUDENTS:
-            abort_student(student_id)
-        STUDENTS[student_id] = student_id
-        return student_id, 201
-
-
+@api.route('/students')
 class StudentsList(Resource):
     def get(self):
         return STUDENTS
-
+    
     def post(self):
-        student_data = request.get_json()
-        student_id = next(iter(student_data))
-        STUDENTS[student_id] = student_data
+        body = request.get_json()
+        student_id = next(iter(body))
+        data = body[student_id]
+
+        try:
+            validate(data)
+        except fastjsonschema.JsonSchemaException as e:
+            abort(404, message=e.message)
+
+        STUDENTS[student_id] = data
         return {'message' : 'Student added succesfully!'}
 
+@api.route('/students/<student_id>')
+class Student(Resource):
+    @abort_invalid_student
+    def get(self, student_id):
+        return STUDENTS[student_id]
 
-# Routing
-api.add_resource(StudentsList, '/students')
-api.add_resource(Student, '/students/<student_id>')
+    @abort_invalid_student
+    def delete(self, student_id):
+        del STUDENTS[student_id]
+        return '', 204
+
+    @abort_invalid_student
+    def put(self, student_id):
+        STUDENTS[student_id] = student_id
+        return student_id, 201
 
 
 if __name__ == '__main__':
