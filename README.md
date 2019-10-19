@@ -19,9 +19,10 @@ estudiante, favoreciendo la privacidad en lugar de tener una hoja pública con l
 
 ## Documentacion
 
-Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/latest/index.html), aunque se puede ir directamente a la sección deseada a través del siguiente índice:
+Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/master/index.html), aunque se puede ir directamente a la sección deseada a través del siguiente índice:
 
-* [Herramientas](https://notasiv.readthedocs.io/en/latest/herramientas.html)
-* [Build Tool](https://notasiv.readthedocs.io/en/latest/build.html)
-* [Integración Continua](https://notasiv.readthedocs.io/en/latest/ci.html)
-* [Clase](https://notasiv.readthedocs.io/en/latest/clase.html)
+* [Herramientas](https://notasiv.readthedocs.io/en/master/herramientas.html)
+* [Build Tool](https://notasiv.readthedocs.io/en/master/build.html)
+* [Integración Continua](https://notasiv.readthedocs.io/en/master/ci.html)
+* [Clase](https://notasiv.readthedocs.io/en/master/clase.html)
+* [API](https://notasiv.readthedocs.io/en/master/api.html)

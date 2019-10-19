@@ -13,5 +13,5 @@ def abort_invalid_student(func):
         if db.get_student(student_id):
             return func(self, student_id, *args, **kwargs)
         else:
-            abort(400, message=f"The student {student_id} doesnt exist")
+            abort(400, message="The student {} doesnt exist".format(student_id))
     return wrapper

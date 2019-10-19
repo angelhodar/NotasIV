@@ -11,3 +11,4 @@ Aqui se documentará todo lo relativo al microservicio.
    build.rst
    ci.rst
    clase.rst
+   api.rst

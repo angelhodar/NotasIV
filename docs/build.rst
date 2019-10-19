@@ -5,20 +5,24 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
 
 .. code:: bash
 
-    .PHONY: tests clean
+    .PHONY: tests docs clean
     init:
         pip install pipenv
         pipenv install --dev
     tests:
-        pipenv run python -m pytest --cov-report=xml --cov=notas tests/
+        pipenv run python -m pytest -p no:warnings --cov-report=xml --cov=notas tests/
     coverage:
         codecov
+    docs:
+        cd docs && make html
     clean:
         rm coverage.xml .coverage
+        cd docs && make clean
 
 A continuación se explica el funcionamiento de cada regla:
 
 * ``init``: Instala el gestor de paquetes y entorno virtual `pipenv <https://pipenv-es.readthedocs.io>`_, a la vez que instala las dependencias del proyecto.
+* ``docs``: Compila la documentación generando un directorio ``docs/_build`` con los archivos html para abrirlos con un navegador web.
 * ``tests``: Ejecuta los tests y genera un reporte en formato xml.
 * ``codecov``: Utiliza el reporte generado previamente para actualizar la página en `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_
 * ``clean``: Limpia los archivos generados para codecov (útil para cuando se ejecutan en local y no en Travis por ejemplo).

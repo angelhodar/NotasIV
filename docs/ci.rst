@@ -34,7 +34,8 @@ en la ejecución de los tests a la plataforma `codecov.io <https://codecov.io/gh
 CircleCI
 --------
 
-Para CircleCI la configuración es bastante similar, simplemente nuestro archivo de configuración pasa a llamarse ``config.yml`` y hay
+Para CircleCI la configuración es bastante similar, aunque se ha reducido la versión de python solo a la versión específica usada
+en desarrollo local del proyecto. En este caso el archivo de configuración pasa a llamarse ``config.yml`` y hay
 que ubircarlo en un directorio ``.circleci`` en la raiz de nuestro proyecto. El archivo ``config.yml`` contiene lo siguiente:
 
 .. code:: yaml
