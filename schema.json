@@ -2,23 +2,27 @@
     "title": "Student",
     "description": "The JSON schema for student data",
     "type": "object",
-    "required": ["nombre", "telegram", "repo", "hitos"],
+    "required": ["github", "nombre", "telegram", "repo"],
     "properties": {
+        "github": {
+            "type": "string",
+            "description": "The student's github username"
+        },
         "nombre": {
             "type": "string",
-            "title": "Name of the student"
+            "description": "Name of the student"
         },
         "telegram": {
             "type": "string",
-            "title": "Student's Telegram username"
+            "description": "Student's Telegram username"
         },
         "repo": {
             "type": "string",
-            "title": "The student's project github repository url"
+            "description": "The student's project github repository url"
         },
         "hitos": {
             "type": "array",
-            "title": "An array containing all grades",
+            "description": "An array containing all grades",
             "items": {
                 "type": "object",
                 "required": ["numero", "nota"],
@@ -43,7 +47,12 @@
                         "type": "array",
                         "items": {
                             "type": "object",
+                            "required": ["numero", "nota"],
                             "properties": {
+                                "numero": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                },
                                 "nota": {
                                     "type": "number",
                                     "minimum": 0,

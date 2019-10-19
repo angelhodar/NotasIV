@@ -1,28 +1,27 @@
 {
-    "test": {
-        "nombre": "Test",
-        "telegram": "test98",
-        "repo": "https://github.com/angelhodar/testing",
-        "hitos": [
-            {
-                "numero": 0,
-                "nota": 10,
-                "comentarios": "Prueba",
-                "adicionales": "Hola"
-            },
-            {
-                "numero": 1,
-                "nota": 10,
-                "comentarios": "Prueba",
-                "adicionales": "Hola",
-                "reenvios" : [
-                    {
-                        "nota" : 8.5,
-                        "comentarios" : "Bien hecho",
-                        "adicionales" : "Adicional"
-                    }
-                ]
-            }
-        ]
-    }
+    "github": "testgithub",
+    "nombre": "Test",
+    "telegram": "test98",
+    "repo": "https://github.com/angelhodar/testing",
+    "hitos": [
+        {
+            "numero": 0,
+            "nota": 10,
+            "comentarios": "Prueba",
+            "adicionales": "Hola"
+        },
+        {
+            "numero": 1,
+            "nota": 10,
+            "comentarios": "Prueba",
+            "adicionales": "Hola",
+            "reenvios" : [
+                {
+                    "nota" : 8.5,
+                    "comentarios" : "Bien hecho",
+                    "adicionales" : "Adicional"
+                }
+            ]
+        }
+    ]
 }
