@@ -1,7 +1,7 @@
-import api_db as db
+import notas.api_db as db
 from flask import Flask, request
 from flask_restplus import Api, Resource, abort, fields
-from utils import abort_invalid_student, get_schema
+from notas.utils import abort_invalid_student, get_schema
 
 app = Flask(__name__)
 api = Api(
@@ -35,7 +35,7 @@ class StudentsList(Resource):
         return student_id, 201
 
 
-@namespace.route("/students/<student_id>")
+@namespace.route("/students/<int:student_id>")
 @api.doc(params={"student_id": "Student's github username"})
 class Student(Resource):
     @api.response(200, 'Success"', student_schema)

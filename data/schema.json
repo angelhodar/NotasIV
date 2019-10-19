@@ -1,5 +1,5 @@
 {
-    "title": "Student",
+    "title": "Student Schema",
     "description": "The JSON schema for student data",
     "type": "object",
     "required": ["github", "nombre", "telegram", "repo"],

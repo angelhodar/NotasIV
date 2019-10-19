@@ -1,10 +1,10 @@
 import json
-import api_db as db
+import notas.api_db as db
 from functools import wraps
 from flask_restplus import abort
 
 def get_schema():
-    with open("schema.json") as file:
+    with open("data/schema.json") as file:
         return json.load(file)
 
 def abort_invalid_student(func):

@@ -17,6 +17,7 @@
             "adicionales": "Hola",
             "reenvios" : [
                 {
+                    "numero": 1,
                     "nota" : 8.5,
                     "comentarios" : "Bien hecho",
                     "adicionales" : "Adicional"

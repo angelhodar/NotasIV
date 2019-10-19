@@ -12,13 +12,13 @@ sphinx-rtd-theme = "*"
 pylint = "*"
 sphinx-autoapi = "*"
 pytest-flask = "*"
+pytest-ordering = "*"
 
 [packages]
 mongoengine = "*"
 loguru = "*"
 flask = "*"
 flask-restplus = "*"
-fastjsonschema = "*"
 tinydb = "*"
 
 [requires]

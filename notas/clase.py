@@ -11,7 +11,7 @@ def get_students():
     Returns:
         (list): Dict of students
     """
-    return load_json('db.json')['alumnos']
+    return load_json('data/samples.json')['alumnos']
 
 
 def get_student(student_id):
@@ -23,7 +23,9 @@ def get_student(student_id):
     Returns:
         (dict): Student data
     """
-    return get_students()[student_id]
+    for student in get_students():
+        if student['github'] == student_id:
+            return student
 
 
 def insert_student(student):
@@ -36,7 +38,7 @@ def insert_student(student):
         (dict): All students with the new one inserted.
     """
     students = get_students()
-    students.update(student)
+    students.append(student)
     return students
 
 
@@ -50,7 +52,9 @@ def delete_student(student_id):
         (dict): All students without the deleted one
     """
     students = get_students()
-    del students[student_id]
+    for i, student in enumerate(students):
+        if student['github'] == student_id:
+            del students[i]
     return students
 
 
@@ -66,5 +70,7 @@ def update_student(student_id, field, value):
         (dict): All students with the selected one updated.
     """
     students = get_students()
-    students[student_id][field] = value
+    for student in students:
+        if student['github'] == student_id:
+            student[field] = value
     return students
