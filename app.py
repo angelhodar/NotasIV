@@ -1,28 +1,34 @@
-import notas.api_db as db
+from notas import db
 from flask import Flask, request
 from flask_restplus import Api, Resource, abort, fields
 from notas.utils import abort_invalid_student, get_schema
 
 app = Flask(__name__)
+
+# Ruta de verificación de estado
+@app.route('/')
+def check_status():
+    return {"status": "OK"}, 200
+
 api = Api(
     app,
     version="1.0",
+    doc = "/docs",
     title="NotasIV API",
     description="API para el microservicio de la asignatura Infraestructura Virtual (2019-2020)"
 )
 
-namespace = api.namespace("NotasIV", path="/api/v1")
+students_ns = api.namespace("NotasIV", path="/api/v1")
 
 student_schema = api.schema_model('Student Schema', get_schema())
 student_list_schema = api.model('Students List Schema', {
     'data': fields.List(fields.Nested(student_schema))
 })
 
-@namespace.route("/students")
+@students_ns.route("/students")
 class StudentsList(Resource):
     @api.response(200, 'Success', student_list_schema)
     def get(self):
-        app.logger.info('GET /students')
         return {'data': db.get_students()}
 
     @api.response(201, 'Student created')
@@ -31,11 +37,10 @@ class StudentsList(Resource):
     def post(self):
         data = request.get_json()
         student_id = db.add_student(data)
-        app.logger.info('POST /students/1')
         return student_id, 201
 
 
-@namespace.route("/students/<int:student_id>")
+@students_ns.route("/students/<int:student_id>")
 @api.doc(params={"student_id": "Student's github username"})
 class Student(Resource):
     @api.response(200, 'Success"', student_schema)

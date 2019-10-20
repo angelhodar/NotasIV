@@ -1,5 +1,5 @@
 import json
-import notas.api_db as db
+from notas import db
 from functools import wraps
 from flask_restplus import abort
 

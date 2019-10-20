@@ -1,10 +1,24 @@
 API
 ===
 
-En esta sección se muestra la documentación de la API implementada para el microservicio. Esta información está generada a partir de
-los docstrings contenidos en el código de la aplicación, aunque debo destacar que el paquete ``flask-restplus`` usado para el desarrollo
-de la API-RESTful genera una documentación con Swagger que puede ser visualizada en la raíz de la API con Swagger UI y que además muestra
-los modelos devueltos por la API, así como la posibilidad de probarla cómodamente como si uśaramos Postman por ejemplo. Aqui se puede ver
-una imagen de lo mencionado:
+En esta sección se muestra la documentación de la API implementada para el microservicio. Primero se menciona la posibilidad
+de visualizar la información con Swagger, y posteriormente en otra sección distinta se muestran los distintos métodos presentados
+de una forma amigable y con links al código para ver su implementación en más detalle.
 
-TODO
+Swagger
+-------
+
+El paquete ``flask-restplus`` usado para el desarrollo de la API-RESTful, poniéndole una serie de decoradores
+a los métodos, genera una documentación con Swagger que puede ser visualizada en el endpoint ``/docs`` de la API con Swagger UI
+y muestra tanto los métodos disponibles como los modelos JSON devueltos por la API (aumenta el zoom en el navegador si no lo ves bien).
+
+.. image:: images/swagger.png
+
+Swagger UI también ofrece la posibilidad de probar la API cómodamente como si uśaramos Postman por ejemplo. Nos dice los outputs que ofrece
+un endpoint y la posibilidad de hacer POST y PUT adjuntando cómodamente un JSON en el body de la petición.
+
+.. image:: images/swagger_expected_get.png
+
+.. image:: images/swagger_post.png
+
+.. image:: images/swagger_delete.png

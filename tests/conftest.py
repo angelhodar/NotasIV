@@ -1,11 +1,10 @@
 import json
 from pytest import fixture
-import notas.app as server
+from app import app as server
 
 @fixture
 def app():
-    app = server.app
-    return app
+    return server
 
 @fixture
 def valid_student():
