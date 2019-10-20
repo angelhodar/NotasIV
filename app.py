@@ -4,26 +4,29 @@ from flask_restplus import Api, Resource, abort, fields
 from notas.utils import abort_invalid_student, get_schema
 
 app = Flask(__name__)
-
-# Ruta de verificación de estado
-@app.route('/')
-def check_status():
-    return {"status": "OK"}, 200
-
 api = Api(
     app,
     version="1.0",
-    doc = "/docs",
     title="NotasIV API",
     description="API para el microservicio de la asignatura Infraestructura Virtual (2019-2020)"
 )
 
+status_ns = api.namespace('Status', path="/")
 students_ns = api.namespace("NotasIV", path="/api/v1")
 
 student_schema = api.schema_model('Student Schema', get_schema())
 student_list_schema = api.model('Students List Schema', {
     'data': fields.List(fields.Nested(student_schema))
 })
+check_status = api.model('Status', {
+    'status': fields.String(default="OK")
+})
+
+@status_ns.route('/status')
+class CheckStatus(Resource):
+    @api.response(200, 'Success', check_status)
+    def get(self):
+        return {'status': "OK"}
 
 @students_ns.route("/students")
 class StudentsList(Resource):

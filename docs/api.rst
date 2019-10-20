@@ -9,7 +9,7 @@ Swagger
 -------
 
 El paquete ``flask-restplus`` usado para el desarrollo de la API-RESTful, poniéndole una serie de decoradores
-a los métodos, genera una documentación con Swagger que puede ser visualizada en el endpoint ``/docs`` de la API con Swagger UI
+a los métodos, genera una documentación con Swagger que puede ser visualizada en el endpoint ``/`` de la API con Swagger UI
 y muestra tanto los métodos disponibles como los modelos JSON devueltos por la API (aumenta el zoom en el navegador si no lo ves bien).
 
 .. image:: images/swagger.png
