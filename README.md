@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.com/angelhodar/NotasIV.svg?branch=master)](https://travis-ci.com/angelhodar/NotasIV)
 [![CircleCI](https://circleci.com/gh/angelhodar/NotasIV.svg?style=svg)](https://circleci.com/gh/angelhodar/NotasIV)
 [![codecov](https://codecov.io/gh/angelhodar/NotasIV/branch/master/graph/badge.svg)](https://codecov.io/gh/angelhodar/NotasIV)
-[![Documentation Status](https://readthedocs.org/projects/notasiv/badge/?version=master)](https://notasiv.readthedocs.io/en/master/?badge=master)
+[![Documentation Status](https://readthedocs.org/projects/notasiv/badge/?version=master)](https://notasiv.readthedocs.io/en/latest/?badge=master)
 
 ## ¿En qué consiste este repositorio?
 
@@ -19,12 +19,12 @@ estudiante, favoreciendo la privacidad en lugar de tener una hoja pública con l
 
 ## Documentacion
 
-Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/master/index.html), aunque se puede ir directamente a la sección deseada a través del siguiente índice:
+Toda la documentación que se vaya añadiendo sobre el microservicio se puede encontrar [aqui](https://notasiv.readthedocs.io/en/latest/index.html), aunque se puede ir directamente a la sección deseada a través del siguiente índice:
 
-* [Herramientas](https://notasiv.readthedocs.io/en/master/herramientas.html)
-* [Build Tool](https://notasiv.readthedocs.io/en/master/build.html)
-* [Integración Continua](https://notasiv.readthedocs.io/en/master/ci.html)
-* [Clase](https://notasiv.readthedocs.io/en/master/clase.html)
-* [API](https://notasiv.readthedocs.io/en/master/api.html)
+* [Herramientas](https://notasiv.readthedocs.io/en/latest/herramientas.html)
+* [Build Tool](https://notasiv.readthedocs.io/en/latest/build.html)
+* [Integración Continua](https://notasiv.readthedocs.io/en/latest/ci.html)
+* [Clase](https://notasiv.readthedocs.io/en/latest/clase.html)
+* [API](https://notasiv.readthedocs.io/en/latest/api.html)
 
 buildtool: Makefile
