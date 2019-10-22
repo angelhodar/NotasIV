@@ -5,7 +5,7 @@ init:
 tests:
 	pipenv run python -m pytest -p no:warnings --cov-report=xml --cov=notas tests/
 coverage:
-	codecov
+	pipenv run codecov
 docs:
 	cd docs && make html
 start:
