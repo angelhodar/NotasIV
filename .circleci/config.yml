@@ -20,8 +20,6 @@ jobs:
           name: Ejecutar tests
           command: |
             make tests
-      - store-test_results:
-          path: test-results
       # Actualiza codecov
       - run:
           name: Coverage
