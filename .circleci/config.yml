@@ -2,7 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.8
+      - image: circleci/python:3.5
+      - image: circleci/python:3.6
+      - image: circleci/python:3.7
+      - image: circleci/python:3.8
+      - image: circleci/python:latest
     steps:
       # Obtenemos codigo del repo
       - checkout
@@ -16,3 +20,15 @@ jobs:
           name: Ejecutar tests
           command: |
             make tests
+      - store-test_results:
+          path: test-results
+      # Actualiza codecov
+      - run:
+          name: Coverage
+          command: |
+            make coverage
+      # Arranca el microservicio y comprueba su ejecución
+      - run:
+          name: Arranque 
+          command: |
+            make start

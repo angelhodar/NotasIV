@@ -13,16 +13,18 @@ estar ubicado en la raiz de nuestro proyecto. Este archivo contiene la siguiente
 
     language: python
     python:
-        - "3.5"
-        - "3.6"
-        - "3.7"
-        - "3.7-dev"
+      - "3.5"
+      - "3.6"
+      - "3.7"
+      - "3.8"
+      - "3.8-dev"
     install:
-        - make
+      - make
     script:
-        - make tests
+      - make tests
     after_success:
-        - make coverage
+      - make coverage
+      - make start
 
 Simplemente le definimos el lenguaje de programación que vamos a usar, junto con las distintas versiones
 del mismo con las que vamos a testear nuestra aplicación. Como dijimos en la sección anterior, para ejecutar
@@ -44,20 +46,36 @@ que ubircarlo en un directorio ``.circleci`` en la raiz de nuestro proyecto. El 
     jobs:
       build:
         docker:
-          - image: circleci/python:3.6.8
+          - image: circleci/python:3.5
+          - image: circleci/python:3.6
+          - image: circleci/python:3.7
+          - image: circleci/python:3.8
+          - image: circleci/python:latest
         steps:
           # Obtenemos codigo del repo
           - checkout
           # Entorno virtual y dependencias
           - run:
-            name: Entorno y dependencias
-            command: |
-              make
+              name: Entorno y dependencias
+              command: |
+                make
           # Ejecucion de los tests
           - run:
-            name: Ejecutar tests
-            command: |
-              make tests
+              name: Ejecutar tests
+              command: |
+                make tests
+          - store-test_results:
+              path: test-results
+          # Actualiza codecov
+          - run:
+              name: Coverage
+              command: |
+                make coverage
+          # Arranca el microservicio y comprueba su ejecución
+          - run:
+              name: Arranque 
+              command: |
+                make start
 
 En este caso, aunque la configuración es menos trivial que con Travis, ya que por ejemplo para indicar la versión de python específica que queremos
 debemos buscar cual es la imagen de docker que contiene exactamente la versión que queremos. Aun asi, realmente es bastante intuitivo, permitiendo múltiples configuraciones
