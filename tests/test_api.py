@@ -1,4 +1,5 @@
 import pytest
+import json
 
 @pytest.mark.order1
 def test_get_students(client):
@@ -16,9 +17,10 @@ def test_post_student(client, valid_student):
 
 
 @pytest.mark.order3
-def test_get_student(client):
+def test_get_student(client, valid_student):
     response = client.get("/api/v1/students/1")
     assert response.status_code == 200
+    assert response.json['github'] == json.loads(valid_student)['github']
     response = client.get("/api/v1/students/fail")
     assert response.status_code == 404
 

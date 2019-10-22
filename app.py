@@ -44,7 +44,7 @@ class StudentsList(Resource):
 
 
 @students_ns.route("/students/<int:student_id>")
-@api.doc(params={"student_id": "Student's github username"})
+@api.doc(params={"student_id": "Student's resource id"})
 class Student(Resource):
     @api.response(200, 'Success"', student_schema)
     @api.response(404, 'Student not found')

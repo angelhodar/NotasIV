@@ -10,3 +10,4 @@ script:
   - make tests
 after_success:
   - make coverage
+  - make start
