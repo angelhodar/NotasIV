@@ -5,6 +5,10 @@ python:
   - "3.7"
   - "3.8"
   - "3.8-dev"
+addons:
+  apt:
+    packages:
+    - nodejs
 before_install:
   - make pm2
 install:
