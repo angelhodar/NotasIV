@@ -1,9 +1,8 @@
 API
 ===
 
-En esta sección se muestra la documentación de la API implementada para el microservicio. Primero se menciona la posibilidad
-de visualizar la información con Swagger, y posteriormente en otra sección distinta se muestran los distintos métodos presentados
-de una forma amigable y con links al código para ver su implementación en más detalle.
+En esta sección se muestra la documentación de la API implementada con Swagger para no solo ver los
+métodos que ofrece el microservicio, sino también para poder testearlo.
 
 Swagger
 -------
@@ -28,4 +27,7 @@ Para poder probar toda esta funcionalidad, simplemente puedes clonar el reposito
 .. code:: bash
 
     $ make
-    $ make start (instalará pm2 globalmente en tu equipo).
+    $ make pm2 (instalará pm2 globalmente en tu equipo, si ya lo tienes puedes omitir esto)
+    $ make start
+
+Ahora solo debes ir a la dirección ``https://127.0.0.1:5000`` y estará todo listo para probar la API con Swagger UI.
