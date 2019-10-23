@@ -9,6 +9,7 @@ install:
   - make
 script:
   - make tests
+  - make start
+  - make delete
 after_success:
   - make coverage
-  - make start

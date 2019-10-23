@@ -22,3 +22,10 @@ un endpoint y la posibilidad de hacer POST y PUT adjuntando cómodamente un JSON
 .. image:: images/swagger_post.png
 
 .. image:: images/swagger_delete.png
+
+Para poder probar toda esta funcionalidad, simplemente puedes clonar el repositorio y dentro del mismo ejecutar:
+
+.. code:: bash
+
+    $ make
+    $ make start (instalará pm2 globalmente en tu equipo).

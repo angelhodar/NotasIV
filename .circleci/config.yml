@@ -25,8 +25,13 @@ jobs:
           name: Coverage
           command: |
             make coverage
-      # Arranca el microservicio y comprueba su ejecución
+      # Arranca el microservicio
       - run:
           name: Arranque 
           command: |
             make start
+      # Para y borra el microservicio
+      - run:
+          name: Parada 
+          command: |
+            make delete

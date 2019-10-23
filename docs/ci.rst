@@ -22,16 +22,17 @@ estar ubicado en la raiz de nuestro proyecto. Este archivo contiene la siguiente
       - make
     script:
       - make tests
+      - make start
+      - make delete
     after_success:
       - make coverage
-      - make start
 
 Simplemente le definimos el lenguaje de programación que vamos a usar, junto con las distintas versiones
 del mismo con las que vamos a testear nuestra aplicación. Como dijimos en la sección anterior, para ejecutar
 nuestra herramienta de construcción en el entorno que nos da travis simplemente debemos usar ``make`` para instalar todo
-lo necesario para ejecutar nuestros tests. Por lo tanto, en la directiva ``script`` solo debemos ejecutar ``make tests``.
-Si todo ha ido bien, usando la directiva ``after_success`` se ejecutará ``make coverage`` para mandar los reportes generados
-en la ejecución de los tests a la plataforma `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_.
+lo necesario para ejecutar nuestros tests y arrancar el microservicio. Por lo tanto, en la directiva ``script`` solo
+debemos ejecutar ``make tests`` y ``make start``. Si todo ha ido bien, usando la directiva ``after_success`` se ejecutará
+``make coverage`` para mandar los reportes generados en la ejecución de los tests a la plataforma `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_.
 
 CircleCI
 --------
@@ -43,39 +44,43 @@ que ubircarlo en un directorio ``.circleci`` en la raiz de nuestro proyecto. El 
 .. code:: yaml
 
     version: 2
-    jobs:
-      build:
-        docker:
-          - image: circleci/python:3.5
-          - image: circleci/python:3.6
-          - image: circleci/python:3.7
-          - image: circleci/python:3.8
-          - image: circleci/python:latest
-        steps:
-          # Obtenemos codigo del repo
-          - checkout
-          # Entorno virtual y dependencias
-          - run:
-              name: Entorno y dependencias
-              command: |
-                make
-          # Ejecucion de los tests
-          - run:
-              name: Ejecutar tests
-              command: |
-                make tests
-          - store-test_results:
-              path: test-results
-          # Actualiza codecov
-          - run:
-              name: Coverage
-              command: |
-                make coverage
-          # Arranca el microservicio y comprueba su ejecución
-          - run:
-              name: Arranque 
-              command: |
-                make start
+  jobs:
+    build:
+      docker:
+        - image: circleci/python:3.5
+        - image: circleci/python:3.6
+        - image: circleci/python:3.7
+        - image: circleci/python:3.8
+        - image: circleci/python:latest
+      steps:
+        # Obtenemos codigo del repo
+        - checkout
+        # Entorno virtual y dependencias
+        - run:
+            name: Entorno y dependencias
+            command: |
+              make
+        # Ejecucion de los tests
+        - run:
+            name: Ejecutar tests
+            command: |
+              make tests
+        # Actualiza codecov
+        - run:
+            name: Coverage
+            command: |
+              make coverage
+        # Arranca el microservicio
+        - run:
+            name: Arranque 
+            command: |
+              make start
+        # Para y borra el microservicio
+        - run:
+            name: Parada 
+            command: |
+              make delete
+
 
 En este caso, aunque la configuración es menos trivial que con Travis, ya que por ejemplo para indicar la versión de python específica que queremos
 debemos buscar cual es la imagen de docker que contiene exactamente la versión que queremos. Aun asi, realmente es bastante intuitivo, permitiendo múltiples configuraciones
