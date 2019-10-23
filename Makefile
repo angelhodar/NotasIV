@@ -1,8 +1,10 @@
-.PHONY: tests docs clean npm
+.PHONY: tests docs clean
 init:
 	pip install pipenv
 	pipenv install --dev
 pm2:
+	sudo apt update
+	sudo apt install -y nodejs
 	sudo apt install -y npm
 	sudo npm install -g pm2
 tests:
