@@ -16,6 +16,8 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
     docs:
         cd docs && make html
     start:
+        sudo apt install npm
+	    sudo npm install -g pm2
         pipenv run pm2 start "uwsgi --http 127.0.0.1:5000 --module app:app --master --processes 4 --threads 2" --name app
     stop:
         pipenv run pm2 stop app
@@ -33,7 +35,7 @@ A continuación se explica el funcionamiento de cada regla:
 * ``tests``: Ejecuta los tests y genera un reporte en formato xml.
 * ``coverage``: Utiliza el reporte generado previamente para actualizar la página en `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_
 * ``docs``: Compila la documentación generando un directorio ``docs/_build`` con los archivos html para abrirlos con un navegador web.
-* ``start``: Inicializa un contenedor de pm2 usando WSGI con 4 procesos y 2 hilos cada uno dentro del mismo.
+* ``start``: Instala e inicializa un contenedor de pm2 usando WSGI con 4 procesos y 2 hilos cada uno dentro del mismo.
 * ``stop``: Para el proceso de pm2 (pero no lo borra de memoria). Si se ejecuta ``start`` posteriormente se reactiva ese proceso parado.
 * ``delete``: Para el proceso de pm2 y también lo borra de memoria.
 * ``restart``: Reinicia el proceso de pm2.

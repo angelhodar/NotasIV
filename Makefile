@@ -9,6 +9,8 @@ coverage:
 docs:
 	cd docs && make html
 start:
+	sudo apt install npm
+	sudo npm install -g pm2
 	pipenv run pm2 start "uwsgi --http 127.0.0.1:5000 --module app:app --master --processes 4 --threads 2" --name app
 stop:
 	pipenv run pm2 stop app
