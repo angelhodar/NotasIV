@@ -1,12 +1,16 @@
 version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - python-3.5
+      - python-3.6
+      - python-3.7
+      - python-3.8
 jobs:
-  build:
+  python-3.5: &build-template # Definimos una base de ejecución
     docker:
       - image: circleci/python:3.5
-      - image: circleci/python:3.6
-      - image: circleci/python:3.7
-      - image: circleci/python:3.8
-      - image: circleci/python:latest
     steps:
       # Obtenemos codigo del repo
       - checkout
@@ -14,6 +18,7 @@ jobs:
       - run:
           name: Entorno y dependencias
           command: |
+            make pm2
             make
       # Ejecucion de los tests
       - run:
@@ -35,3 +40,16 @@ jobs:
           name: Parada 
           command: |
             make delete
+  
+  python-3.6:
+    <<: *build-template
+    docker:
+      - image: circleci/python:3.6
+  python-3.7:
+    <<: *build-template
+    docker:
+      - image: circleci/python:3.7
+  python-3.8:
+    <<: *build-template
+    docker:
+      - image: circleci/python:3.8

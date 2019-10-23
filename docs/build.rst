@@ -9,7 +9,8 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
     init:
         pip install pipenv
         pipenv install --dev
-        sudo apt install npm
+    pm2:
+        sudo apt install -y npm
         sudo npm install -g pm2
     tests:
         pipenv run python -m pytest -p no:warnings --cov-report=xml --cov=notas tests/
@@ -32,6 +33,7 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
 A continuación se explica el funcionamiento de cada regla:
 
 * ``init``: Instala el gestor de paquetes y entorno virtual `pipenv <https://pipenv-es.readthedocs.io>`_, a la vez que instala las dependencias del proyecto.
+* ``pm2``: Instala npm y el paquete pm2.
 * ``tests``: Ejecuta los tests y genera un reporte en formato xml.
 * ``coverage``: Utiliza el reporte generado previamente para actualizar la página en `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_
 * ``docs``: Compila la documentación generando un directorio ``docs/_build`` con los archivos html para abrirlos con un navegador web.
