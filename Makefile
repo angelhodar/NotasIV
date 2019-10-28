@@ -22,7 +22,7 @@ delete:
 restart:
 	pipenv run pm2 restart app
 heroku:
-	pipenv run uwsgi --http 127.0.0.1:5000 --module app:app --master --processes 4 --threads 2
+	pipenv run uwsgi --http 0.0.0.0:$PORT --module app:app
 clean:
 	rm -f coverage.xml .coverage
 	cd docs && make clean
