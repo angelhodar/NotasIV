@@ -19,6 +19,8 @@ delete:
 	pipenv run pm2 delete app
 restart:
 	pipenv run pm2 restart app
+heroku:
+	pipenv run uwsgi --http 127.0.0.1:5000 --module app:app --master --processes 4 --threads 2" --name app
 clean:
 	rm -f coverage.xml .coverage
 	cd docs && make clean
