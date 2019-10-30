@@ -11,6 +11,7 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
         pipenv install --dev
     pm2:
         sudo apt update
+        sudo apt install -y nodejs
         sudo apt install -y npm
         sudo npm install -g pm2
     tests:

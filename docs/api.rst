@@ -2,7 +2,8 @@ API
 ===
 
 En esta sección se muestra la documentación de la API implementada con Swagger para no solo ver los
-métodos que ofrece el microservicio, sino también para poder testearlo.
+métodos que ofrece el microservicio, sino también para poder testearlo, así como la documentación de
+cada función de los tests.
 
 Swagger
 -------
@@ -14,20 +15,14 @@ y muestra tanto los métodos disponibles como los modelos JSON devueltos por la 
 .. image:: images/swagger.png
 
 Swagger UI también ofrece la posibilidad de probar la API cómodamente como si uśaramos Postman por ejemplo. Nos dice los outputs que ofrece
-un endpoint y la posibilidad de hacer POST y PUT adjuntando cómodamente un JSON en el body de la petición.
+un endpoint y la posibilidad de hacer POST y PUT adjuntando cómodamente un JSON en el body de la petición. Para poder probar toda esta
+funcionalidad, como ya tengo la app corriendo en Heroku, puedes acceder a ella simplemente haciendo click `aquí <https://notas-iv.herokuapp.com/>`_
 
-.. image:: images/swagger_expected_get.png
+Tests
+-----
 
-.. image:: images/swagger_post.png
+Toda la funcionalidad referente a los tests sobre la API la puedes encontrar en el archivo ``tests/tests_api.py``. A continuación
+se muestra una breve documentación sobre cada método implementado.
 
-.. image:: images/swagger_delete.png
-
-Para poder probar toda esta funcionalidad, simplemente puedes clonar el repositorio y dentro del mismo ejecutar:
-
-.. code:: bash
-
-    $ make
-    $ make pm2 (instalará pm2 globalmente en tu equipo, si ya lo tienes puedes omitir esto)
-    $ make start
-
-Ahora solo debes ir a la dirección ``https://127.0.0.1:5000`` y estará todo listo para probar la API con Swagger UI.
+.. autoapimodule:: test_api
+    :members: test_status, test_get_students, test_post_student, test_get_student, test_put_student, test_delete_student

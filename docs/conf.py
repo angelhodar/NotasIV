@@ -41,7 +41,7 @@ extensions = ['sphinx.ext.autodoc',
 autoapi_type = 'python'
 autoapi_add_toctree_entry = False
 autoapi_generate_api_docs = False
-autoapi_dirs = ['../notas']
+autoapi_dirs = ['../notas', '../tests']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
