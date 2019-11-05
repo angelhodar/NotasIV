@@ -21,13 +21,20 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
     docs:
         cd docs && pipenv run make html
     start:
-        pipenv run pm2 start "uwsgi --http 127.0.0.1:5000 --module app:app --master --processes 4 --threads 2" --name app
+        pipenv run pm2 start "uwsgi --http 127.0.0.1:${PORT} --module app:app --master" --name app
+    start-no-pm2:
+        pipenv run uwsgi --http 127.0.0.1:${PORT} --module app:app --master
     stop:
         pipenv run pm2 stop app
     delete:
         pipenv run pm2 delete app
     restart:
         pipenv run pm2 restart app
+    heroku:
+        sudo snap install heroku --classic
+        heroku login
+        heroku create notas-iv --buildpack heroku/python
+        git push heroku master
     clean:
         rm -f coverage.xml .coverage
         cd docs && make clean
@@ -39,10 +46,12 @@ A continuación se explica el funcionamiento de cada regla:
 * ``tests``: Ejecuta los tests y genera un reporte en formato xml.
 * ``coverage``: Utiliza el reporte generado previamente para actualizar la página en `codecov.io <https://codecov.io/gh/angelhodar/NotasIV>`_
 * ``docs``: Compila la documentación generando un directorio ``docs/_build`` con los archivos html para abrirlos con un navegador web.
-* ``start``: Instala e inicializa un contenedor de pm2 usando WSGI con 4 procesos y 2 hilos cada uno dentro del mismo.
+* ``start``: Inicializa un contenedor de pm2 con un servidor WSGI.
+* ``start-no-pm2``: Inicializa un servidor web WSGI sin usar pm2.
 * ``stop``: Para el proceso de pm2 (pero no lo borra de memoria). Si se ejecuta ``start`` posteriormente se reactiva ese proceso parado.
 * ``delete``: Para el proceso de pm2 y también lo borra de memoria.
 * ``restart``: Reinicia el proceso de pm2.
+* ``heroku``: Lleva a cabo todo lo necesario para desplegar la aplicación en Heroku. Para mayor información consulta la sección :doc:`./despliegue`
 * ``clean``: Limpia los archivos generados para codecov (útil para cuando se ejecutan en local y no en Travis por ejemplo).
 
 Hay una directiva extra llamada ``.PHONY`` que evita confundir reglas con directorios existentes, como por ejemplo los tests.
