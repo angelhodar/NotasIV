@@ -16,7 +16,7 @@ docs:
 start:
 	pipenv run pm2 start "uwsgi --http 127.0.0.1:$(PORT) --module app:app --master" --name app
 start-no-pm2:
-	pipenv run uwsgi --http 127.0.0.1:$(PORT) --module app:app --master
+	pipenv run uwsgi --http 0.0.0.0:$(PORT) --module app:app --master
 stop:
 	pipenv run pm2 stop app
 delete:
