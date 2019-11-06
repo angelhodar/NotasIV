@@ -1,10 +1,18 @@
+import os
 from notas import db
-from flask import Flask, request
+from flask import Flask, request, url_for
 from flask_restplus import Api, Resource, abort, fields
 from notas.utils import abort_invalid_student, get_schema
 
+
+class CustomAPI(Api):
+    @property
+    def specs_url(self):
+        scheme = 'https' if os.environ.get('USE_HTTPS') else 'http'
+        return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
+
 app = Flask(__name__)
-api = Api(
+api = CustomAPI(
     app,
     version="1.0",
     title="NotasIV API",
