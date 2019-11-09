@@ -1,18 +1,10 @@
-import os
 from notas import db
 from flask import Flask, request, url_for
-from flask_restplus import Api, Resource, abort, fields
-from notas.utils import abort_invalid_student, get_schema
-
-
-class CustomAPI(Api):
-    @property
-    def specs_url(self):
-        scheme = 'https' if os.environ.get('USE_HTTPS') else 'http'
-        return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
+from flask_restplus import Api, Resource, fields
+from notas.utils import abort_invalid_student, get_json
 
 app = Flask(__name__)
-api = CustomAPI(
+api = Api(
     app,
     version="1.0",
     title="NotasIV API",
@@ -22,19 +14,16 @@ api = CustomAPI(
 status_ns = api.namespace('Status', path="/")
 students_ns = api.namespace("NotasIV", path="/api/v1")
 
-student_schema = api.schema_model('Student Schema', get_schema())
+student_schema = api.schema_model('Student Schema', get_json("schema.json"))
 student_list_schema = api.model('Students List Schema', {
     'data': fields.List(fields.Nested(student_schema))
-})
-check_status = api.model('Status', {
-    'status': fields.String(default="OK")
 })
 
 @status_ns.route('/status')
 class CheckStatus(Resource):
-    @api.response(200, 'Success', check_status)
+    @api.response(200, 'Success')
     def get(self):
-        return {'status': "OK"}
+        return get_json('status.json')
 
 @students_ns.route("/students")
 class StudentsList(Resource):

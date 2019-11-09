@@ -3,8 +3,8 @@ from notas import db
 from functools import wraps
 from flask_restplus import abort
 
-def get_schema():
-    with open("data/schema.json") as file:
+def get_json(filename):
+    with open("data/{}".format(filename)) as file:
         return json.load(file)
 
 def abort_invalid_student(func):

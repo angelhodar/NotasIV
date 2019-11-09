@@ -1,0 +1,7 @@
+{
+    "status": "OK",
+    "ejemplo": {
+        "ruta": "/api/v1/students",
+        "valor": "{data : []}"
+    }
+}

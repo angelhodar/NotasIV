@@ -1,5 +1,6 @@
 import json
 from pytest import fixture
+from notas.utils import get_json
 from app import app as server
 
 @fixture
@@ -8,5 +9,8 @@ def app():
 
 @fixture
 def valid_student():
-    with open('data/sample.json') as f:
-        return json.dumps(json.load(f))
+    return json.dumps(get_json('sample.json'))
+
+@fixture
+def status():
+    return get_json('status.json')

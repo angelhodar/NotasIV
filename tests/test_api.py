@@ -2,7 +2,7 @@ import pytest
 import json
 
 @pytest.mark.order1
-def test_status(client):
+def test_status(client, status):
     """Testea si se recibe código 200 en la ruta /status
     con una petición GET y que el resultado sea un JSON con formato
     {'status': "OK"}
@@ -12,7 +12,7 @@ def test_status(client):
     """
     response = client.get("/status")
     assert response.status_code == 200
-    assert response.json == {'status': "OK"}
+    assert response.json == status
 
 
 @pytest.mark.order2
