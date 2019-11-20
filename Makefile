@@ -14,9 +14,9 @@ coverage:
 docs:
 	cd docs && pipenv run make html
 start:
-	pipenv run pm2 start "uwsgi --http 127.0.0.1:$(PORT) --module app:app --master" --name app
+	pipenv run pm2 start "gunicorn -b 127.0.0.1:$(PORT) app:app" --name app
 start-no-pm2:
-	pipenv run uwsgi --http 0.0.0.0:$(PORT) --module app:app --master
+	pipenv run gunicorn -b 0.0.0.0:$(PORT) app:app
 stop:
 	pipenv run pm2 stop app
 delete:

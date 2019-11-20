@@ -1,0 +1,45 @@
+# Git
+.git
+.gitignore
+
+# CI
+.circleci/
+.travis.yml
+
+# Docker
+docker-compose.yml
+.docker
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+*.py[cod]
+*/*.py[cod]
+*/*/*.py[cod]
+*/*/*/*.py[cod]
+
+# Unit test / coverage reports
+.coverage
+coverage.xml
+
+# Sphinx documentation
+docs/_build/
+
+# Virtual environment
+.env/
+.venv/
+env/
+venv/
+
+# PyCharm
+.idea
+
+# Otros
+Procfile
+Makefile
+.env
+.vscode/
+docs/
+tests/
