@@ -27,6 +27,7 @@ Toda la documentación que se vaya añadiendo sobre el microservicio se puede en
 * [Clase](https://notasiv.readthedocs.io/en/latest/clase.html)
 * [API](https://notasiv.readthedocs.io/en/latest/api.html)
 * [Despliegue en un PaaS](https://notasiv.readthedocs.io/en/latest/despliegue.html)
+* [Docker](https://notasiv.readthedocs.io/en/latest/docker.html)
 
 ### Herramienta de construccion
 ```
@@ -36,4 +37,9 @@ buildtool: Makefile
 ### App:
 ```
 Despliegue: https://notas-iv.herokuapp.com/
+```
+
+### Docker Hub
+```
+docker pull angelhodar/notas-iv:latest
 ```

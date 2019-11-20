@@ -13,3 +13,4 @@ Aqui se documentará todo lo relativo al microservicio.
    clase.rst
    api.rst
    despliegue.rst
+   docker.rst

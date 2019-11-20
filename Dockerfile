@@ -1,4 +1,5 @@
-# Usamos la versión alpine de 3.7 ya que es mucho mas ligera (100MB vs 1GB)
+# Usamos la versión alpine de la versión 3.7 de python yaa que es
+# mucho mas ligera (100MB vs 1GB)
 FROM python:3.7-alpine
 
 # Exponemos el puerto 5000 que usará la app
