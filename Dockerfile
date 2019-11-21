@@ -2,8 +2,11 @@
 # mucho mas ligera (100MB vs 1GB)
 FROM python:3.7-alpine
 
-# Exponemos el puerto 5000 que usará la app
-EXPOSE 5000
+# Datos propios
+LABEL maintainer="Ángel Hódar (angelhodar76@gmail.com)"
+
+# Exponemos el puerto de la variable de entorno
+EXPOSE $PORT
 
 # Copiamos primero solo el requirements para aprovecharnos del sistema
 # de layers de las imagenes docker e instalamos las dependencias
@@ -15,5 +18,5 @@ COPY . /app
 # Nos movemos al directorio creado previamente.
 WORKDIR /app
 
-# Finalmente ejecutamos la app escuchando en el puerto 5000
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+# Finalmente ejecutamos la app escuchando en el puerto definido en PORT
+CMD gunicorn -b 0.0.0.0:${PORT} app:app
