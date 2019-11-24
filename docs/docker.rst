@@ -159,7 +159,41 @@ Para empezar, necesitamos estar logueados en Heroku desde el CLI, asi que ejecut
 
     $ heroku login
 
-Ahora debemos logearnos en el container registry de Heroku:
+Ahora creamos nuestra app con el nombre que queramos, en mi caso va a ser **notas-iv**.
+
+.. code:: bash
+
+    $ heroku create notas-iv
+
+    Creating ⬢ notas-iv... done
+    https://notas-iv.herokuapp.com/ | https://git.heroku.com/notas-iv.git
+
+Una vez tenemos la app creada, necesitamos crear un archivo llamado ``heroku.yml``, que tendrá una funcionalidad
+parecida al ``Procfile``, pero esta vez se encargará de monstar y correr la imagen que definamos en el Dockerfile
+en la app que hemos creado previamente. El archivo tiene el siguiente formato:
+
+.. code:: yaml
+
+    build:
+        docker:
+            web: Dockerfile
+
+Cuando lo tengamos listo simplemente hacemos un commit con el archivo a nuestro repo y cambiamos el stack de nuestra app
+a modo contenedor con el siguiente comando:
+
+.. code:: bash
+
+    $ heroku stack:set container
+
+Y ya solo falta hacer push de nuestra app a Heroku:
+
+.. code:: bash
+
+    $ git push heroku master
+
+Otra forma:
+
+Primero debemos logearnos en el container registry de Heroku:
 
 .. code:: bash
 
