@@ -191,6 +191,19 @@ desde una URL:
     $ heroku container:release web -a notas-iv
 
 
+Despliegue en Azure
+-------------------
+
+Desplegar en Azure es tremendamente sencillo, tan solo debemos crear un nuevo App Service y especificarle que queremos usar un contenedor Docker:
+
+(captura)
+
+Y para configurarle la imagen que queremos, debemos seleccionar el proveedor de imagenes que queramos, en nuestro caso sería Docker Hub, especificandole
+la ruta completa de nuestra imagen, con el nombre del repo y el tag que queremos usar:
+
+(captura)
+
+
 
 
     
