@@ -41,5 +41,11 @@ Despliegue: https://notas-iv.herokuapp.com/
 
 ### Docker Hub
 ```
+URL: https://hub.docker.com/repository/docker/angelhodar/notas-iv
+```
+Para descargar y ejecutar la imagen localmente, tan solo se debe ejecutar lo siguiente:
+
+```
 docker pull angelhodar/notas-iv:latest
+docker run -e PORT=$PORT -p $HOST_PORT:$PORT notas-iv .
 ```

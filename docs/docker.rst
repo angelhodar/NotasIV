@@ -3,7 +3,7 @@ Docker
 
 En esta sección se documentará la creación de un contenedor de docker para correr nuestra aplicación
 de forma completamente aislada y solo con las dependencias estrictamente necesarias. Posteriormente,
-se creará un repositorio en DockerHub con la imagen creada y se usará para desplegar en Heroku y Azure.
+se creará un repositorio en Docker Hub con la imagen creada y se usará para desplegar en Heroku y Azure.
 
 Creación de la imagen
 ---------------------
@@ -71,7 +71,7 @@ Una vez tenemos el ``Dockerfile`` creado, debemos situarnos en el mismo director
     Successfully built 2a90f78a4ae6
     Successfully tagged notas-iv:latest
 
-Esto creará una imagen llamada 'notas-iv', indicando con '.' el path donde está nuestro Dockerfile.
+Esto creará una imagen llamada **notas-iv**, indicando con **.** el path donde está nuestro Dockerfile.
 En este caso como ya se ha ejecutado previamente, vemos como usa la caché para no tener que ejecutar
 cada comando de nuevo. Esto es especialmente interesante en el caso de la instalación de dependencias
 con **pip**, ya que solo se ejecutará si cambiamos alguna dependencia, en lugar de hacerse siempre que
@@ -91,7 +91,7 @@ Para ello, simplemente ejecutamos:
 
 .. code:: bash
 
-    $ docker run -e PORT=$PORT -p 5000:5000 notas-iv
+    $ docker run -e PORT=$PORT -p $HOST_PORT:$PORT notas-iv
 
     [2019-11-21 15:04:40 +0000] [1] [INFO] Starting gunicorn 19.9.0
     [2019-11-21 15:04:40 +0000] [1] [INFO] Listening at: http://0.0.0.0:5000 (1)
@@ -99,12 +99,13 @@ Para ello, simplemente ejecutamos:
     [2019-11-21 15:04:40 +0000] [7] [INFO] Booting worker with pid: 7
 
 
-La opción ``-p`` le indica que vamos a mapear el puerto 5000 del anfitrión al puerto 5000 del contenedor,
-necesario ya que nuestra app escucha en el puerto 5000. Además, con la opción ``-e`` hacemos que el servidor
-WSGI de Gunicorn se ejecute escuchando en el puerto definido en la variable de entorno ``PORT`` (por defecto
-debe escuchar en el puerto 5000 ya que es donde escucha Flask), aparte de que es necesario posteriormente en Heroku.
+La opción ``-p`` le indica que vamos a mapear el puerto ``$HOST_PORT`` del anfitrión al puerto ``$PORT`` del contenedor.
+Basicamente esto quiere decir que si queremos acceder a nuestro contenedor localmente en la dirección **127.0.0.1:550** por ejemplo,
+el valor de ``$HOST_PORT`` debe de ser **550**, mientras que el valor de ``$PORT`` deberá de ser aquel en el que queremos que escuche
+nuestra app web dentro de su contenedor (en el caso de la ejecución anterior era **5000**).
 
-Si accedemos a 127.0.0.1:5000 vemos que el contenedor funciona correctamente.
+Además, con la opción ``-e`` hacemos que el servidor WSGI de Gunicorn se ejecute escuchando en el puerto definido en la variable
+de entorno ``$PORT`` mencionada anteriormente, algo necesario también posteriormente cuando se ejecuta en Heroku.
 
 Docker Hub
 ----------
@@ -132,6 +133,20 @@ Si elegimos la segunda opción, debemos ejecutar tan solo 3 comandos para subir 
     # Sube la imagen al repo remoto.
     $ docker push angelhodar/notas-iv:latest
 
+Ahora necesitamos un paso extra para automatizar las builds con GitHub, ya que si seleccionamos **Create & Build**
+solo se crea en ese momento, pero no se tienen en cuenta futuros ``git push`` que se hagan en el repo.
+
+En nuestro repositorio de Docker Hub, debemos irnos al apartado Builds y configurarlo de esta manera:
+
+.. image:: images/dockerhub_build.png
+
+Una vez lo hayamos hecho, le damos al botón **Save and Build** y se iniciará una nueva build de nuestra imagen.
+Cuando se complete nos deberá salir un resultado tal que asi:
+
+.. image:: images/dockerhub_build_success.png
+
+Y con esto ya tendriamos Docker Hub completamente configurado y automatizado con nuestro repo de GitHub.
+
 Depligue en Heroku
 ------------------
 
@@ -157,8 +172,12 @@ que podamos subirla al container registry de Heroku:
 
     $ docker tag notas-iv registry.heroku.com/notas-iv/web
 
-Ahora primero antes que nada debemos irnos a la web de Heroky y crear una app con el nombre que queramos,
-en mi caso la he llamado igual que la imagen. Y ahora si, la subimos al registro de Heroku:
+Ahora primero antes que nada debemos irnos a la web de Heroku y crear una app con el nombre que queramos,
+en mi caso la he llamado igual que la imagen. 
+
+.. Note:: También podríamos hacerlo desde el CLI ejecutando ``heroku create notas-iv``, pero nos desplegará la app usando el Procfile, cosa que no queremos ya que nos interesa hacerlo con un contenedor.
+
+Una vez tenemos la app creada, ahora si, la subimos al registro de Heroku:
 
 .. code:: bash
 
