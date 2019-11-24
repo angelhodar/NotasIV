@@ -28,6 +28,16 @@ heroku:
 	heroku login
 	heroku create notas-iv --buildpack heroku/python
 	git push heroku master
+heroku-docker:
+	sudo snap install heroku --classic
+	heroku login
+	heroku create notas-iv
+	heroku stack:set container
+	git push heroku master
+docker-build:
+	docker build -t notas-iv .
+docker-run: docker-build
+	docker run -e PORT=$(PORT) -p 5000:$(PORT) notas-iv
 clean:
 	rm -f coverage.xml .coverage
 	cd docs && make clean

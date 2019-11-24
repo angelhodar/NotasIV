@@ -150,16 +150,14 @@ Y con esto ya tendriamos Docker Hub completamente configurado y automatizado con
 Depligue en Heroku
 ------------------
 
-Una vez tenemos la imagen en Docker Hub, estamos listos para poder desplegar el contenedor
-en distintos servicios. En este caso vamos a ver cómo desplegarlo en Heroku.
-
-Para empezar, necesitamos estar logueados en Heroku desde el CLI, asi que ejecutamos:
+Desplegar nuestra imagen en Heroku es igual de sencillo que anteriormente. Para empezar, necesitamos estar
+logueados en Heroku desde el CLI, asi que ejecutamos:
 
 .. code:: bash
 
     $ heroku login
 
-Ahora creamos nuestra app con el nombre que queramos, en mi caso va a ser **notas-iv**.
+Seguimos los pasos que nos indica y ahora creamos nuestra app con el nombre que queramos, en mi caso va a ser **notas-iv**.
 
 .. code:: bash
 
@@ -169,7 +167,7 @@ Ahora creamos nuestra app con el nombre que queramos, en mi caso va a ser **nota
     https://notas-iv.herokuapp.com/ | https://git.heroku.com/notas-iv.git
 
 Una vez tenemos la app creada, necesitamos crear un archivo llamado ``heroku.yml``, que tendrá una funcionalidad
-parecida al ``Procfile``, pero esta vez se encargará de monstar y correr la imagen que definamos en el Dockerfile
+parecida al ``Procfile``, pero esta vez se encargará de montar y correr la imagen que definamos en el Dockerfile
 en la app que hemos creado previamente. El archivo tiene el siguiente formato:
 
 .. code:: yaml
@@ -178,52 +176,88 @@ en la app que hemos creado previamente. El archivo tiene el siguiente formato:
         docker:
             web: Dockerfile
 
-Cuando lo tengamos listo simplemente hacemos un commit con el archivo a nuestro repo y cambiamos el stack de nuestra app
-a modo contenedor con el siguiente comando:
+Si nos fijamos es muy similar al ``Procfile``, tan solo le estamos diciendo que para montar nuestra app se va a usar docker utilizando
+el proceso ``web``, y que todas las reglas necesarias para hacerlo están en nuestro Dockerfile. Cuando lo tengamos listo simplemente
+debemos cambiar el stack de nuestra app a modo contenedor con el siguiente comando:
 
 .. code:: bash
 
     $ heroku stack:set container
 
-Y ya solo falta hacer push de nuestra app a Heroku:
+    Stack set. Next release on ⬢ notas-iv will use container.
+    Run git push heroku master to create a new release on ⬢ notas-iv.
+
+Esto provoca que heroku busque el archivo ``heroku.yml`` en lugar del ``Procfile``. Y ya solo falta hacer push de nuestra app
+a Heroku (pongo algunas lineas de la salida para que se vea como usa el Dockerfile en lugar del Procfile):
 
 .. code:: bash
 
     $ git push heroku master
 
-Otra forma:
+    Contando objetos: 437, listo.
+    Delta compression using up to 8 threads.
+    Comprimiendo objetos: 100% (419/419), listo.
+    Escribiendo objetos: 100% (437/437), 1.03 MiB | 11.93 MiB/s, listo.
+    Total 437 (delta 257), reused 0 (delta 0)
+    remote: Compressing source files... done.
+    remote: Building source:
+    remote: === Fetching app code
+    remote: 
+    remote: === Building web (Dockerfile)
+    remote: Sending build context to Docker daemon   98.3kB
+    remote: Step 1/8 : FROM python:3.7-alpine
+    remote: 3.7-alpine: Pulling from library/python
+    remote: 89d9c30c1d48: Pulling fs layer
+    remote: 910c49c00810: Pulling fs layer
+    remote: 7efe415eb85a: Pulling fs layer
+    remote: 7d8d53519b81: Pulling fs layer
+    remote: 519124ac136c: Pulling fs layer
+    remote: 7d8d53519b81: Waiting
+    remote: 519124ac136c: Waiting
+    remote: 910c49c00810: Download complete
+    remote: 7d8d53519b81: Verifying Checksum
+    remote: 7d8d53519b81: Download complete
+    remote: 519124ac136c: Download complete
+    remote: 89d9c30c1d48: Verifying Checksum
+    remote: 89d9c30c1d48: Download complete
+    remote: 7efe415eb85a: Verifying Checksum
+    remote: 7efe415eb85a: Download complete
+    remote: 89d9c30c1d48: Pull complete
+    remote: 910c49c00810: Pull complete
+    remote: 7efe415eb85a: Pull complete
+    remote: 7d8d53519b81: Pull complete
+    remote: 519124ac136c: Pull complete
+    remote: Digest: sha256:de9fc5bc46cb1a7e2222b976394ea8aa0290592e3075457d41c5f246f176b1bf
+    remote: Status: Downloaded newer image for python:3.7-alpine
+    remote:  ---> 8922d588eec6
+    remote: Step 2/8 : LABEL maintainer="Ángel Hódar (angelhodar76@gmail.com)"
+    remote:  ---> Running in 41e15861418b
+    remote: Removing intermediate container 41e15861418b
+    remote:  ---> c3e60445ce92
+    remote: Step 3/8 : EXPOSE $PORT
+    remote:  ---> Running in d619d3dc2b1b
+    remote: Removing intermediate container d619d3dc2b1b
+    remote:  ---> 804c40f0f5d6
+    remote: Step 4/8 : COPY requirements.txt /tmp
+    remote:  ---> d6fe1b20c339
+    remote: Step 5/8 : RUN cd /tmp && pip install -r requirements.txt
+    remote:  ---> Running in 9cfb5b9f4ed2
 
-Primero debemos logearnos en el container registry de Heroku:
+Una salida importante de este comando que no he mostrado es la siguiente:
 
-.. code:: bash
+.. code:: bash 
 
-    $ heroku container:login
+    remote: === Pushing web (Dockerfile)
+    remote: Tagged image "6fb25269ffa2f2f648ce1fbeaf7de9a083b67b18" as "registry.heroku.com/notas-iv/web"
+    remote: The push refers to repository [registry.heroku.com/notas-iv/web]
 
-En nuestro caso, como ya tenemos la imagen creada, debemos cambiarle el nombre de tal forma
-que podamos subirla al container registry de Heroku:
+Basicamente lo que se hace cuando ejecutamos el comando anterior es hacer un pull de la imagen al
+**Container Registry** de Heroku poniendole ese nombre concreto a la imagen (registry.heroku.com/notas-iv/web), que
+contiene el nombre de nuestra app y el tipo de proceso que requiere nuestra aplicación (web), igual que cuando se
+definía en el ``Procfile``.
 
-.. code:: bash
-
-    $ docker tag notas-iv registry.heroku.com/notas-iv/web
-
-Ahora primero antes que nada debemos irnos a la web de Heroku y crear una app con el nombre que queramos,
-en mi caso la he llamado igual que la imagen. 
-
-.. Note:: También podríamos hacerlo desde el CLI ejecutando ``heroku create notas-iv``, pero nos desplegará la app usando el Procfile, cosa que no queremos ya que nos interesa hacerlo con un contenedor.
-
-Una vez tenemos la app creada, ahora si, la subimos al registro de Heroku:
-
-.. code:: bash
-
-    $ docker push registry.heroku.com/notas-iv/web
-
-Ahora tan solo nos queda desplegarlo en Heroku para poder acceder a él
-desde una URL:
-
-.. code:: bash
-
-    $ heroku container:release web -a notas-iv
-
+Ya solo faltaría asociar la app al repo de GitHub para que se ejecute el despliegue con tan solo hacer git push a nuestro repo,
+tal y como se hizo en la sección :ref:`heroku_github`.
 
 Despliegue en Azure
 -------------------

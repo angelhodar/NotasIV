@@ -27,6 +27,8 @@ HTTP y nos habilita un puerto que deberemos asignar a nuestra aplicación con la
 regla ``start-no-pm2`` ya que no tiene sentido ejecutar nuestra aplicación en pm2 si ya el propio Heroku nos proporciona las
 herramientas necesarias, como la escalabilidad por ejemplo.
 
+.. _heroku_github:
+
 Heroku y GitHub
 ***************
 

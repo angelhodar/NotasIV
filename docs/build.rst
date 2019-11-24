@@ -35,6 +35,16 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
         heroku login
         heroku create notas-iv --buildpack heroku/python
         git push heroku master
+    heroku-docker:
+        sudo snap install heroku --classic
+        heroku login
+        heroku create notas-iv
+        heroku stack:set container
+        git push heroku master
+    docker-build:
+        docker build -t notas-iv .
+    docker-run: docker-build
+        docker run -e PORT=$(PORT) -p 5000:$(PORT) notas-iv
     clean:
         rm -f coverage.xml .coverage
         cd docs && make clean
@@ -52,6 +62,9 @@ A continuación se explica el funcionamiento de cada regla:
 * ``delete``: Para el proceso de pm2 y también lo borra de memoria.
 * ``restart``: Reinicia el proceso de pm2.
 * ``heroku``: Lleva a cabo todo lo necesario para desplegar la aplicación en Heroku. Para mayor información consulta la sección :doc:`./despliegue`
+* ``heroku-docker``: Lleva a cabo todo lo necesario para desplegar la aplicación en Heroku usando docker. Para mayor información consulta la sección :doc:`./docker`
+* ``docker-build: Crea una imagen de docker usando el ``Dockerfile``.
+* ``docker-run``: Ejecuta un contenedor con nuestra imagen (si no está creada la crea en ese momento).
 * ``clean``: Limpia los archivos generados para codecov (útil para cuando se ejecutan en local y no en Travis por ejemplo).
 
 Hay una directiva extra llamada ``.PHONY`` que evita confundir reglas con directorios existentes, como por ejemplo los tests.
