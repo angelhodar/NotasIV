@@ -264,14 +264,24 @@ Despliegue en Azure
 
 Desplegar en Azure es tremendamente sencillo, tan solo debemos crear un nuevo App Service y especificarle que queremos usar un contenedor Docker:
 
-(captura)
+.. image:: images/azure_docker.png
 
-Y para configurarle la imagen que queremos, debemos seleccionar el proveedor de imagenes que queramos, en nuestro caso sería Docker Hub, especificandole
-la ruta completa de nuestra imagen, con el nombre del repo y el tag que queremos usar:
+Al seleccionar docker, se nos abrirá una nueva pestaña en la que deberemos indicar qué imagen queremos usar y de dónde extraerla.
+En nuestro caso, el proveedor de imagenes sería Docker Hub, especificandole la ruta completa de nuestra imagen, con el nombre del
+repo y el tag que queremos usar:
 
-(captura)
+.. image:: images/azure_docker_dockerhub.png
 
+Ahora tan solo debemos darle a **Revisar y crear** y nuestro contenedor estará desplegado y funcionando. Resulta extraño que no tengamos
+que configurar ningun parámetro adicional, como la variable de entorno ``$PORT`` que necesita el contenedor para funcionar. Pero, si nos
+fijamos en los logs que nos proporciona Azure, podemos ver cómo han ejecutado la imagen:
 
+.. code:: bash
+
+    $ docker run -d -p 7530:80 --name notas-iv_0_b168528e -e PORT=80 -e WEBSITE_SITE_NAME=notas-iv -e WEBSITE_HOSTNAME=notas-iv.azurewebsites.net
+
+Hay incluso más variables de entorno en el comando, pero la que nos interesa especialmente es que utilizan una variable ``$PORT``.
+En concreto, tiene valor **80**, algo esperable al tratarse de una app web.
 
 
     
