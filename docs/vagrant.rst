@@ -76,15 +76,15 @@ la máquina y asociandole el par de llaves que nosotros queramos.
 Aprovisionamiento
 -----------------
 
-Para aprovisionar la máquina se ha usado ansible, y para decirle qué debe aprovisionar sobre la máquina concretamente
+Como se ha dicho anteriormente, para aprovisionar la máquina se ha usado ansible, y para decirle qué debe aprovisionar sobre la máquina concretamente
 he creado un archivo ``playbook.yml`` en el directorio ``provisioning``, que contiene lo siguiente:
 
 .. code:: yaml
 
     ---
-    # Como solo tenemos una máquina, usando all ansible solo se ejecutará en ella
-    - hosts: all
-    tasks:
+    # Como Vagrant nos crea un inventario, aqui podemos poner directamente el nombre que le dimos a la VM.
+    - hosts: NotasIV
+      tasks:
         # Primero con apt vamos a varias dependencias, como pip, make y npm para usar pm2
         - name: Instalar dependencias
         become: true
@@ -131,6 +131,14 @@ he creado un archivo ``playbook.yml`` en el directorio ``provisioning``, que con
             user: angel
             state: present
             key: "{{ lookup('file', '/home/angel/.ssh/id_rsa.pub') }}"
+
+
+.. Note:: Un detalle importante es que, como explico en el propio playbook al principio, Vagrant nos crea un inventario para ansible
+   en ``.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`` con las maquinas que hayamos definido en el ``Vagrantfile``.
+   Como se definió una máquina de nombre NotasIV, podemos ponerla directamente en la clave hosts. Si tuvieramos mas máquinas podriamos
+   agruparlas en un grupo y especificar ese grupo, o simplemente usar el keyword **all** para ejecutar las tasks del playbook sobre todas las maquinas definidas
+   en el Vagrantfile. Si estuvieramos usando el comando **ansible-playbook** en lugar de vagrant, el inventario por defecto estaría en ``/etc/ansible/hosts``.
+
 
 Una vez tenemos todo listo para aprovisionar la máquina, ejecutamos lo siguiente:
 

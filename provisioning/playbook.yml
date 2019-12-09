@@ -1,6 +1,6 @@
 ---
-  # Como solo tenemos una máquina, usando all ansible solo se ejecutará en ella
-- hosts: all
+  # Como Vagrant nos crea un inventario, aqui podemos poner directamente el nombre que le dimos a la VM.
+- hosts: NotasIV
   tasks:
     # Primero con apt vamos a varias dependencias, como pip, make y npm para usar pm2
     - name: Instalar dependencias
