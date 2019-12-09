@@ -44,7 +44,7 @@ Contenedor: https://notas-iv.azurewebsites.net/
 
 ### Docker Hub
 ```
-URL: https://hub.docker.com/repository/docker/angelhodar/notas-iv
+URL: https://hub.docker.com/r/angelhodar/notas-iv
 ```
 Para descargar y ejecutar la imagen localmente, tan solo se debe ejecutar lo siguiente:
 
