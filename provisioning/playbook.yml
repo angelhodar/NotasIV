@@ -1,0 +1,39 @@
+---
+- hosts: all
+  tasks:
+    - name: Instalar dependencias
+      become: true
+      apt:
+        name:
+          - git
+          - python3-pip
+          - nodejs
+          - npm
+          - make
+        state: present
+        update_cache: true
+    
+    - name: Instalar pm2 globalmente
+      become: true
+      npm:
+        name: pm2
+        global: yes
+    
+    - name: Instalar pipenv
+      pip:
+        name: pipenv
+
+    - name: Crear usuario angel
+      become: true
+      user:
+        name: angel
+        shell: /bin/bash
+      
+    - name: Agregar clave publica para el usuario angel
+      become: true
+      authorized_key:
+        user: angel
+        state: present
+        key: "{{ lookup('file', '/home/angel/.ssh/id_rsa.pub') }}"
+    
+
