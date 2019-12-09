@@ -8,7 +8,7 @@ Creación de la VM
 -----------------
 
 Para crear la VM vamos a usar **Vagrant**, que nos permitirá tener un archivo de
-configuración para establecer la box que vamos a usar, el proveedor que ejecutará
+configuración para establecer la box que vamos a usar y el proveedor que ejecutará
 la VM (en este caso he elegido **VirtualBox** por ser gratis y por su portabilidad),
 además de otros ajustes. También podemos especificarle directamente el sistema de
 aprovisionamiento que vamos a usar, que en mi caso ha sido **ansible**, asi podemos
@@ -52,6 +52,9 @@ que tiene el siguiente formato:
         end
     end
 
+.. Note:: Como SO base he seleccionado la última versión estable de Ubuntu, la 18.04 LTS, ya que no es muy pesada
+   (307MB) y tiene las últimas actualizaciones de la distribución.
+
 Una vez tenemos este archivo, con la herramienta de construcción simplemente ejecutamos:
 
 .. code:: bash
@@ -68,13 +71,13 @@ pero **no** aprovisionará la máquina. Para acceder a ella, podemos hacerlo con
 Esto funciona porque cuando vagrant crea nuestra máquina, también crea un usuario llamado ``vagrant``, generando un
 par de llaves SSH e insertando la pública en la máquina virtual y la privada en la ruta ``.vagrant/machines/NotasIV/virtualbox/private_key``,
 que es de donde la obtiene a la hora de hacer ssh. Esto lo vamos a modificar en el aprovisionamiento, creando un usuario dentro de
-la máquina y asociandole la clave pública que nosotros queramos.
+la máquina y asociandole el par de llaves que nosotros queramos.
 
 Aprovisionamiento
 -----------------
 
-Para aprovisionar la máquina se ha usado ansible, y para decirle qué queremos hacer he creado un archivo ``playbook.yml``
-en el directorio ``provisioning``, que contiene lo siguiente:
+Para aprovisionar la máquina se ha usado ansible, y para decirle qué debe aprovisionar sobre la máquina concretamente
+he creado un archivo ``playbook.yml`` en el directorio ``provisioning``, que contiene lo siguiente:
 
 .. code:: yaml
 
@@ -129,9 +132,29 @@ en el directorio ``provisioning``, que contiene lo siguiente:
             state: present
             key: "{{ lookup('file', '/home/angel/.ssh/id_rsa.pub') }}"
 
-Para ejecutar esto sobre la máquina, ejecutamos lo siguiente:
+Una vez tenemos todo listo para aprovisionar la máquina, ejecutamos lo siguiente:
 
 .. code:: bash
 
     $ make provision
+
+Veamos a grandes rasgos qué hace nuestro playbook:
+
+1. Usando el modulo **apt** de ansible, instala y actualiza las dependencias necesarias para crear el entorno necesario
+   para ejecutar la app.
+2. Usando los modulos **npm** y **pip**, instalamos pm2 y pipenv, necesarias para tener control sobre la ejecución de nuestra app
+   y las librerías necesarias.
+3. Creamos un usuario llamado *angel* con el módulo **user**, asignándole un shell de bash en lugar de sh que es el que viene por defecto.
+4. Al usuario le asignamos la llave pública del par que vamos a usar para conectarnos a la máquina con ese usuario.
+
+Para conectarnos con ssh a la máquina usando el usuario *angel* que hemos creado en el aprovisionamiento, debemos hacerlo con el comando **ssh**
+en lugar de **vagrant ssh**. Como vagrant asocia el puerto 2222 a ssh en la máquina y además tiene asociado *127.0.0.1* como IP de acceso, tan
+solo debemos ejecutar: 
+
+.. code:: bash 
+
+    $ ssh angel@localhost -p 2222
+
+.. Note:: Suponemos que tenemos la llave privada asociada a ese usuario en ``~/.ssh`` en nuestro anfitrión, de lo contrario deberiamos de especificarselo
+   al comando ssh con la opción **-i**.
 

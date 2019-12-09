@@ -28,6 +28,7 @@ Toda la documentación que se vaya añadiendo sobre el microservicio se puede en
 * [API](https://notasiv.readthedocs.io/en/latest/api.html)
 * [Despliegue en un PaaS](https://notasiv.readthedocs.io/en/latest/despliegue.html)
 * [Docker](https://notasiv.readthedocs.io/en/latest/docker.html)
+* [Creación y aprovisionamiento](https://notasiv.readthedocs.io/en/latest/vagrant.html)
 
 ### Herramienta de construccion
 ```
@@ -50,4 +51,9 @@ Para descargar y ejecutar la imagen localmente, tan solo se debe ejecutar lo sig
 ```
 docker pull angelhodar/notas-iv:latest
 docker run -e PORT=$PORT -p $HOST_PORT:$PORT notas-iv .
+```
+
+### Aprovisionamiento
+```
+provision: provisioning/playbook.yml
 ```
