@@ -73,13 +73,8 @@ la máquina y asociandole la clave pública que nosotros queramos.
 Aprovisionamiento
 -----------------
 
-Una vez tenemos la máquina creada, basta con aprovisionarla:
-
-.. code:: bash
-
-    $ make provision
-
-Esta regla le dirá a vagrant que use ansible y el siguiente playbook para aprovisionar la máquina:
+Para aprovisionar la máquina se ha usado ansible, y para decirle qué queremos hacer he creado un archivo ``playbook.yml``
+en el directorio ``provisioning``, que contiene lo siguiente:
 
 .. code:: yaml
 
@@ -134,6 +129,9 @@ Esta regla le dirá a vagrant que use ansible y el siguiente playbook para aprov
             state: present
             key: "{{ lookup('file', '/home/angel/.ssh/id_rsa.pub') }}"
 
+Para ejecutar esto sobre la máquina, ejecutamos lo siguiente:
 
+.. code:: bash
 
+    $ make provision
 
