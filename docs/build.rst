@@ -21,7 +21,7 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
     docs:
         cd docs && pipenv run make html
     start:
-        pipenv run pm2 start "gunicorn -b 127.0.0.1:$(PORT) app:app" --name app
+        pipenv run pm2 start "gunicorn -b 0.0.0.0:$(PORT) app:app" --name app
     start-no-pm2:
         pipenv run gunicorn -b 0.0.0.0:$(PORT) app:app
     stop:
@@ -45,9 +45,14 @@ Como herramienta de construcción se ha usado un ``Makefile`` ubicado en la raí
         docker build -t notas-iv .
     docker-run: docker-build
         docker run -e PORT=$(PORT) -p 5000:$(PORT) notas-iv
+    vm:
+        vagrant up --no-provision
+    provision:
+        vagrant provision
     clean:
         rm -f coverage.xml .coverage
         cd docs && make clean
+
 
 A continuación se explica el funcionamiento de cada regla:
 
@@ -65,6 +70,8 @@ A continuación se explica el funcionamiento de cada regla:
 * ``heroku-docker``: Lleva a cabo todo lo necesario para desplegar la aplicación en Heroku usando docker. Para mayor información consulta la sección :doc:`./docker`
 * ``docker-build: Crea una imagen de docker usando el ``Dockerfile``.
 * ``docker-run``: Ejecuta un contenedor con nuestra imagen (si no está creada la crea en ese momento).
+* ``vm``: Crea una máquina virtual con Vagrant. Para más información consulta la sección :doc:`./vagrant`
+* ``provision``: Aprovisiona la máquina virtual creada previamente. Para más información consulta la sección :doc:`./vagrant`
 * ``clean``: Limpia los archivos generados para codecov (útil para cuando se ejecutan en local y no en Travis por ejemplo).
 
 Hay una directiva extra llamada ``.PHONY`` que evita confundir reglas con directorios existentes, como por ejemplo los tests.

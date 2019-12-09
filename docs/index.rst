@@ -14,3 +14,4 @@ Aqui se documentará todo lo relativo al microservicio.
    api.rst
    despliegue.rst
    docker.rst
+   vagrant.rst
