@@ -1,6 +1,8 @@
 ---
+  # Como solo tenemos una máquina, usando all ansible solo se ejecutará en ella
 - hosts: all
   tasks:
+    # Primero con apt vamos a varias dependencias, como pip, make y npm para usar pm2
     - name: Instalar dependencias
       become: true
       apt:
@@ -11,24 +13,35 @@
           - npm
           - make
         state: present
+        # Esto ejecuta sudo apt update antes de instalar las dependencias, necesario
+        # para que encuentre el paquete python3-pip
         update_cache: true
     
+    # Una vez tenemos npm ahora instalamos pm2 de forma global en el equipo para que
+    # cualquier usuario que creemos tenga acceso.
     - name: Instalar pm2 globalmente
       become: true
       npm:
         name: pm2
         global: yes
     
+    # Instalamos pipenv para tener las dependencias del proyecto aisladas del resto
+    # de la VM
     - name: Instalar pipenv
       pip:
         name: pipenv
 
+    # Me creo un usuario angel con una shell de bash. Por defecto le crea un home, no hace
+    # falta especificarselo
     - name: Crear usuario angel
       become: true
       user:
         name: angel
         shell: /bin/bash
       
+    # Como queremos configurar este usuario por ssh para acceder a él desde el anfitrion,
+    # le mandamos la clave pública que queremos tener autorizada para ese usuario,
+    # especificandole la tura en el anfitrion
     - name: Agregar clave publica para el usuario angel
       become: true
       authorized_key:
