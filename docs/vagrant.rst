@@ -62,7 +62,41 @@ Una vez tenemos este archivo, con la herramienta de construcción simplemente ej
     $ make vm
 
 Esto lo que hará será crearnos una máquina virtual con los ajustes que hayamos definido en el ``Vagrantfile``,
-pero **no** aprovisionará la máquina. Para acceder a ella, podemos hacerlo con el siguiente comando:
+pero **no** aprovisionará la máquina. En concreto, devolverá el siguiente output:
+::
+
+        Bringing machine 'NotasIV' up with 'virtualbox' provider...
+    ==> NotasIV: Importing base box 'ubuntu/bionic64'...
+    ==> NotasIV: Matching MAC address for NAT networking...
+    ==> NotasIV: Setting the name of the VM: NotasIV
+    ==> NotasIV: Clearing any previously set network interfaces...
+    ==> NotasIV: Preparing network interfaces based on configuration...
+        NotasIV: Adapter 1: nat
+    ==> NotasIV: Forwarding ports...
+        NotasIV: 5000 (guest) => 5000 (host) (adapter 1)
+        NotasIV: 22 (guest) => 2222 (host) (adapter 1)
+    ==> NotasIV: Running 'pre-boot' VM customizations...
+    ==> NotasIV: Booting VM...
+    ==> NotasIV: Waiting for machine to boot. This may take a few minutes...
+        NotasIV: SSH address: 127.0.0.1:2222
+        NotasIV: SSH username: vagrant
+        NotasIV: SSH auth method: private key
+        NotasIV: Warning: Remote connection disconnect. Retrying...
+        NotasIV: 
+        NotasIV: Vagrant insecure key detected. Vagrant will automatically replace
+        NotasIV: this with a newly generated keypair for better security.
+        NotasIV: 
+        NotasIV: Inserting generated public key within guest...
+        NotasIV: Removing insecure key from the guest if it's present...
+        NotasIV: Key inserted! Disconnecting and reconnecting using new SSH key...
+    ==> NotasIV: Machine booted and ready!
+    ==> NotasIV: Checking for guest additions in VM...
+        NotasIV: Guest Additions Version: 5.2.34
+        NotasIV: VirtualBox Version: 6.0
+    ==> NotasIV: Mounting shared folders...
+        NotasIV: /vagrant => /home/angel/GitHub/NotasIV
+
+Para acceder a ella, podemos hacerlo con el siguiente comando:
 
 .. code:: bash
 
@@ -70,8 +104,19 @@ pero **no** aprovisionará la máquina. Para acceder a ella, podemos hacerlo con
 
 Esto funciona porque cuando vagrant crea nuestra máquina, también crea un usuario llamado ``vagrant``, generando un
 par de llaves SSH e insertando la pública en la máquina virtual y la privada en la ruta ``.vagrant/machines/NotasIV/virtualbox/private_key``,
-que es de donde la obtiene a la hora de hacer ssh. Esto lo vamos a modificar en el aprovisionamiento, creando un usuario dentro de
-la máquina y asociandole el par de llaves que nosotros queramos.
+que es de donde la obtiene a la hora de hacer ssh. De hecho el proceso de creación del par de llaves y la inserción de la pública se muestra
+en parte de la salida de cuando levantamos la máquina:
+::
+
+    NotasIV: Vagrant insecure key detected. Vagrant will automatically replace
+    NotasIV: this with a newly generated keypair for better security.
+    NotasIV: 
+    NotasIV: Inserting generated public key within guest...
+    NotasIV: Removing insecure key from the guest if it's present...
+    NotasIV: Key inserted! Disconnecting and reconnecting using new SSH key...
+
+Esto lo vamos a modificar en el aprovisionamiento, creando un usuario dentro de la máquina y asociandole el
+par de llaves que nosotros queramos.
 
 Aprovisionamiento
 -----------------
@@ -145,6 +190,37 @@ Una vez tenemos todo listo para aprovisionar la máquina, ejecutamos lo siguient
 .. code:: bash
 
     $ make provision
+
+Lo cual generará un output como el siguiente al ejecutarlo por primera vez:
+::
+
+    NotasIV: Running ansible-playbook...
+
+    PLAY [NotasIV] *****************************************************************
+
+    TASK [Gathering Facts] *********************************************************
+    ok: [NotasIV]
+
+    TASK [Instalar dependencias] ***************************************************
+    changed: [NotasIV]
+
+    TASK [Instalar pm2 globalmente] ************************************************
+    changed: [NotasIV]
+
+    TASK [Instalar pipenv] *********************************************************
+    changed: [NotasIV]
+
+    TASK [Crear usuario angel] *****************************************************
+    changed: [NotasIV]
+
+    TASK [Agregar clave publica para el usuario angel] *****************************
+    changed: [NotasIV]
+
+    PLAY RECAP *********************************************************************
+    NotasIV  : ok=6  changed=5  unreachable=0  failed=0  skipped=0  rescued=0  ignored=0 
+
+Las tareas marcadas con **changed** viene a decir que esa tarea se ha realizao y ha cambiado el estado de la máquina. Si por el contrario pusiera **ok**,
+significaría que esa tarea ya ha sido ejecutada y tenemos el sistema con el estado requerido para esa tarea, por lo que no es necesario ejecutarla.
 
 Veamos a grandes rasgos qué hace nuestro playbook:
 
