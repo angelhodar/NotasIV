@@ -242,3 +242,22 @@ solo debemos ejecutar:
 .. Note:: Suponemos que tenemos la llave privada asociada a ese usuario en ``~/.ssh`` en nuestro anfitrión, de lo contrario deberiamos de especificarselo
    al comando ssh con la opción **-i**.
 
+
+Vagrant Cloud
+-------------------------
+
+Para subir mi box a Vagrant Cloud y que cualquiera pueda usarla simplemente nos creamos una cuenta y
+creamos un nuevo repositorio (realmente es muy parecido a Docker Hub). Una vez lo hayamos hecho, primero
+debemos exportar nuestra máquina. Para ello ejecutamos:
+
+.. code:: bash
+
+    $ vagrant package --output NotasIV
+
+Esto nos exportará la máquina en formato .box, y en nuestro repositorio especificaremos una versión y un proveedor, como en nuestro caso
+ha sido virtualbox pues lo seleccionamos y subimos la máquina.
+
+.. Hint:: La box se puede encontrar `aquí <https://app.vagrantup.com/angelhodar/boxes/NotasIV>`_
+
+
+
