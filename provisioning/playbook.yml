@@ -1,6 +1,8 @@
 ---
   # Como Vagrant nos crea un inventario, aqui podemos poner directamente el nombre que le dimos a la VM.
 - hosts: NotasIV
+  environment:
+    PORT: 5000
   tasks:
     # Primero con apt vamos a varias dependencias, como pip, make y npm para usar pm2
     - name: Instalar dependencias
@@ -9,6 +11,8 @@
         name:
           - git
           - python3-pip
+          - python3-setuptools
+          - python-pip
           - nodejs
           - npm
           - make
@@ -24,12 +28,6 @@
       npm:
         name: pm2
         global: yes
-    
-    # Instalamos pipenv para tener las dependencias del proyecto aisladas del resto
-    # de la VM
-    - name: Instalar pipenv
-      pip:
-        name: pipenv
 
     # Me creo un usuario angel con una shell de bash. Por defecto le crea un home, no hace
     # falta especificarselo
@@ -41,12 +39,29 @@
       
     # Como queremos configurar este usuario por ssh para acceder a él desde el anfitrion,
     # le mandamos la clave pública que queremos tener autorizada para ese usuario,
-    # especificandole la tura en el anfitrion
+    # especificandole la ruta en el anfitrion
     - name: Agregar clave publica para el usuario angel
       become: true
       authorized_key:
         user: angel
         state: present
         key: "{{ lookup('file', '/home/angel/.ssh/id_rsa.pub') }}"
+    
+    # Obtenemos el repo desde GitHub
+    - git:
+        repo: https://github.com/angelhodar/NotasIV.git
+        dest: ~/NotasIV
+    
+    # Instalamos las dependencias del proyecto
+    - pip:
+        requirements: ~/NotasIV/requirements.txt
+        executable: pip3
+
+    # Usamos la herramienta de construccion para ejecutar la app
+    - name: Ejecuta la app
+      make:
+        chdir: ~/NotasIV
+        target: start
+        file: ~/NotasIV/Makefile
     
 

@@ -2,30 +2,40 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # Definimos el nombre de nuestra VM para Vagrant
+  # Nombre de la VM para vagrant y ansible
   config.vm.define "NotasIV"
-  # He elegido Ubuntu 18.04 LTS ya que es la última version
-  # estable y con mayor tiempo de soporte actualmente de Ubuntu
-  config.vm.box = "ubuntu/bionic64"
-  # Con esto evitamos que busque actualizaciones de la box automaticamente
-  # Mejor actualizar manualmente que en un posible descuido
-  config.vm.box_check_update = false
-  # Asociamos el acceso a la VM a través de 127.0.0.1, asociando el puerto 5000
-  # del anfitrion al puerto 5000 de la VM.
-  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
 
-  # Localmente he usado virtualbox
-  config.vm.provider "virtualbox" do |vb|
-    # Configuramos el nombre que queremos que tenga la VM dentro de virtualbox
-    # para que no nos ponga nombres raros vagrant
-    vb.name = "NotasIV"
-    # Aparte le definimos 1GB de RAM y 2 nucleos de CPU
-    vb.memory = "1024"
-    vb.cpus = 2
+  # Especificamos el dummy box, el cual nos proporcionará una base para nuestra máquina.
+  config.vm.box_url = 'https://github.com/msopentech/vagrant-azure/raw/master/dummy.box'
+
+  # Clave privada del par usado para conectarse a la VM
+  config.ssh.private_key_path = '~/.ssh/id_rsa'
+
+  config.vm.provider :azure do |azure, override|
+    # Credenciales guardadas en variables de entorno necesarias para poder
+    # desplegar (la obtención de las mismas se explica en la documentación).
+    azure.tenant_id = ENV['AZURE_TENANT_ID']
+    azure.client_id = ENV['AZURE_CLIENT_ID']
+    azure.client_secret = ENV['AZURE_CLIENT_SECRET']
+    azure.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+
+		# Nombre de la máquina virtual en Azure
+    azure.vm_name = "notasiv"
+    # El tipo de máquina, este modelo tiene 1 CPU y 1GB de RAM, aparte de ser
+    # de los mas baratos
+    azure.vm_size = "Standard_B1s"
+    # Abrimos el puerto donde escuchará nuestra app (que lo tenemos también
+    # como variable de entorno).
+    azure.tcp_endpoints = ENV['PORT']
+		# Especificamos la imagen que vamos a montar en nuestra máquina, en este caso Ubuntu 18.04
+		azure.vm_image_urn = 'Canonical:UbuntuServer:18.04-LTS:latest'
+		# Grupo de recursos en Azure donde se creará la máquina
+    azure.resource_group_name = 'Hito7'
+
   end
 
-  # Simplemente configuramos ansible y la ruta de nuestro playbook
-  # para el aprovisionamiento
+  # Usamos ansible como servicio de provisionamiento y le especificamos la ruta
+  # del playbook
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/playbook.yml"
   end
