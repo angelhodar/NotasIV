@@ -39,7 +39,7 @@ docker-build:
 docker-run: docker-build
 	docker run -e PORT=$(PORT) -p 5000:$(PORT) notas-iv
 vm:
-	vagrant up --no-provision
+	vagrant up --no-provision --provider=azure
 provision:
 	vagrant provision
 clean:

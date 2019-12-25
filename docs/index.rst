@@ -15,3 +15,4 @@ Aqui se documentará todo lo relativo al microservicio.
    despliegue.rst
    docker.rst
    vagrant.rst
+   cloud_deploy.rst

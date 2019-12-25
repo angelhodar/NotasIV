@@ -5,6 +5,9 @@ Vagrant.configure("2") do |config|
   # Nombre de la VM para vagrant y ansible
   config.vm.define "NotasIV"
 
+  # Necesario para el plugin de Azure
+  config.vm.box = "azure"
+
   # Especificamos el dummy box, el cual nos proporcionará una base para nuestra máquina.
   config.vm.box_url = 'https://github.com/msopentech/vagrant-azure/raw/master/dummy.box'
 
