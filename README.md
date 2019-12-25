@@ -57,3 +57,9 @@ docker run -e PORT=$PORT -p $HOST_PORT:$PORT notas-iv .
 ```
 provision: provisioning/playbook.yml
 ```
+
+### Despliegue de la VM en Azure
+
+```
+Despliegue final: 52.236.139.44
+```
