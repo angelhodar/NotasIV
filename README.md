@@ -29,6 +29,7 @@ Toda la documentación que se vaya añadiendo sobre el microservicio se puede en
 * [Despliegue en un PaaS](https://notasiv.readthedocs.io/en/latest/despliegue.html)
 * [Docker](https://notasiv.readthedocs.io/en/latest/docker.html)
 * [Creación y aprovisionamiento](https://notasiv.readthedocs.io/en/latest/vagrant.html)
+* [Despliegue de la VM en Azure](https://notasiv.readthedocs.io/en/latest/cloud_deploy.html)
 
 ### Herramienta de construccion
 ```
